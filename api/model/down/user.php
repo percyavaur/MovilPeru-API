@@ -122,6 +122,7 @@ class user
             $this->apellidos = $row['apellidos'];
             $this->nombres = $row['nombres'];
             $this->fecNac = $row['fecNac'];
+            $this->genero = $row['genero'];
             $this->correoElectronico = $row['correoElectronico'];
             $this->direccion = $row['direccion'];
             $this->telefono = $row['telefono'];

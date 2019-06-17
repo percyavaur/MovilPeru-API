@@ -45,6 +45,7 @@ if ($username_exists && password_verify($data->password, $user->password)) {
             "numDocumento" => $user->numDocumento,
             "apellidos" => $user->apellidos,
             "nombres" => $user->nombres,
+            "genero" => $user->genero,
             "fecNac" => $user->fecNac,
             "correoElectronico" => $user->correoElectronico,
             "direccion" => $user->direccion,
