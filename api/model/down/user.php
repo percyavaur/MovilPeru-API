@@ -141,7 +141,7 @@ class user
     public function update()
     {
         // if no posted password, do not update the password
-        $query = "call updateUser(:idUsuario, :idEstado, :idRol, :username, :password, :nombres, :apellidos, :genero, :fecNac, :tipoDocumento, :numDocumento, :correoElectronico, :direccion, :telefono, :imagen)";
+        $query = "call updateUser(:idUsuario, :idEstado, :idRol, :username, :password, :nombres, :apellidos, :genero, :fecNac, :tipoDocumento, :numDocumento, :correoElectronico, :direccion, :telefono, :imagen, :estadoCivil)";
 
         // prepare the query
         $stmt = $this->conn->prepare($query);
@@ -155,6 +155,7 @@ class user
         $this->apellidos = htmlspecialchars(strip_tags($this->apellidos));
         $this->genero = htmlspecialchars(strip_tags($this->genero));
         $this->fecNac = htmlspecialchars(strip_tags($this->fecNac));
+        $this->estadoCivil = htmlspecialchars(strip_tags($this->estadoCivil));
         $this->tipoDocumento = htmlspecialchars(strip_tags($this->tipoDocumento));
         $this->numDocumento = htmlspecialchars(strip_tags($this->numDocumento));
         $this->correoElectronico = htmlspecialchars(strip_tags($this->correoElectronico));
@@ -171,6 +172,7 @@ class user
         $stmt->bindParam(':apellidos', $this->apellidos);
         $stmt->bindParam(':genero', $this->genero);
         $stmt->bindParam(':fecNac', $this->fecNac);
+        $stmt->bindParam(':estadoCivil', $this->estadoCivil);
         $stmt->bindParam(':tipoDocumento', $this->tipoDocumento);
         $stmt->bindParam(':numDocumento', $this->numDocumento);
         $stmt->bindParam(':correoElectronico', $this->correoElectronico);

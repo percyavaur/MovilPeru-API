@@ -27,6 +27,7 @@ $user->nombres = $data->nombres;
 $user->apellidos = $data->apellidos;
 $user->genero = $data->genero;
 $user->fecNac = $data->fecNac;
+$user->estadoCivil = $data->estadoCivil;
 $user->tipoDocumento = $data->tipoDocumento;
 $user->numDocumento = $data->numDocumento;
 $user->correoElectronico = $data->correoElectronico;
