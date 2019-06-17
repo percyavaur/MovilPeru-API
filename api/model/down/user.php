@@ -88,7 +88,7 @@ class user
 
         $idUsuario_set = !empty($this->idUsuario) ? " && idUsuario != ? " : "";
 
-        $query = "SELECT idUsuario, username,password,idRol, rol, tipoDocumento, numDocumento, apellidos, nombres, fecNac, correoElectronico, direccion, telefono, estadoCivil, imagen, idEstado, estado
+        $query = "SELECT idUsuario, username,password,idRol, rol, tipoDocumento, numDocumento, apellidos, nombres, fecNac, genero, correoElectronico, direccion, telefono, estadoCivil, imagen, idEstado, estado
          FROM usuariosInfo WHERE username = ? {$idUsuario_set} LIMIT 0,1";
         // $query = "SELECT id, firstname, lastname, tipo, password FROM " . $this->table_name .
         //     " WHERE username = ? {$id_set} LIMIT 0,1";
@@ -198,7 +198,7 @@ class user
 
     function getUsers()
     {
-        $query = "SELECT idUsuario, username, idRol, rol, tipoDocumento, numDocumento, apellidos, nombres, fecNac, correoElectronico, direccion, telefono, estadoCivil, imagen, idEstado, estado
+        $query = "SELECT idUsuario, username, idRol, rol, tipoDocumento, numDocumento, apellidos, nombres, fecNac, genero, correoElectronico, direccion, telefono, estadoCivil, imagen, idEstado, estado
                 FROM usuariosInfo";
 
         $stmt = $this->conn->prepare($query);
@@ -218,6 +218,7 @@ class user
                 $this->apellidos = $row['apellidos'];
                 $this->nombres = $row['nombres'];
                 $this->fecNac = $row['fecNac'];
+                $this->genero = $row['genero'];
                 $this->correoElectronico = $row['correoElectronico'];
                 $this->direccion = $row['direccion'];
                 $this->telefono = $row['telefono'];
