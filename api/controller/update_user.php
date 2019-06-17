@@ -48,6 +48,8 @@ if ($jwt) {
         $user->idEstado = $data->idEstado;
     }
 
+    //CONDICIONAR CAMBIO DE ROL SOLO PARA ADMINISTRADORES O MASTER
+
     if (!$data->idRol) {
         $data->idRol = $decoded->data->idRol;
     } else {
@@ -75,6 +77,7 @@ if ($jwt) {
                         "apellidos" => $user->apellidos,
                         "nombres" => $user->nombres,
                         "fecNac" => $user->fecNac,
+                        "genero" => $user->genero,
                         "correoElectronico" => $user->correoElectronico,
                         "direccion" => $user->direccion,
                         "telefono" => $user->telefono,
