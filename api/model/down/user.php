@@ -10,6 +10,7 @@ class user
     public $modified;
     public $idUsuario;
     public $idEstado;
+    public $estado;
     public $idRol;
     public $rol;
     public $nombres;
@@ -23,7 +24,6 @@ class user
     public $imagen;
     public $estadoCivil;
     public $direccion;
-    public $estado;
     public $users = array();
 
 
