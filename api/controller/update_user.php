@@ -43,7 +43,7 @@ if ($jwt) {
     $user->idUsuario = $decoded->data->idUsuario;
 
     if (!$data->idEstado) {
-        $data->idEstado = $decoded->data->idEstado;
+        $user->idEstado = $decoded->data->idEstado;
     } else {
         $user->idEstado = $data->idEstado;
     }
@@ -51,7 +51,7 @@ if ($jwt) {
     //CONDICIONAR CAMBIO DE ROL SOLO PARA ADMINISTRADORES O MASTER
 
     if (!$data->idRol) {
-        $data->idRol = $decoded->data->idRol;
+        $user->idRol = $decoded->data->idRol;
     } else {
         $user->idRol = $data->idRol;
     }
