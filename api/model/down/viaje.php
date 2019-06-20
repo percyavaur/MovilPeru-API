@@ -15,6 +15,7 @@ class viaje
     public $direccion;
     public $fechaSalida;
     public $horaSalida;
+    public $precio;
     public $capacidad;
     public $cantPasajeros;
     public $conductor;
@@ -91,7 +92,7 @@ class viaje
 
     function getViajes()
     {
-        $query = "SELECT idViaje, idDestino, Destino, idOrigen, Origen, fechaSalida, horaSalida, capacidad, idConductor, Conductor, placa, marca, modelo, seguro, numSeguro, SOAT FROM viajesInfo
+        $query = "SELECT * FROM viajesInfo
         WHERE idOrigen = ? && idDestino = ? && capacidad >= ? && fechaSalida = ? ";
         $stmt = $this->conn->prepare($query);
 
@@ -118,6 +119,7 @@ class viaje
                 $this->Destino = $row['Destino'];
                 $this->fechaSalida = $row['fechaSalida'];
                 $this->horaSalida = $row['horaSalida'];
+                $this->precio = $row['precio'];
                 $this->capacidad = $row['capacidad'];
                 $this->idConductor = $row['idConductor'];
                 $this->Conductor = $row['Conductor'];
@@ -136,6 +138,7 @@ class viaje
                     'Destino' => $this->Destino,
                     'fechaSalida' => $this->fechaSalida,
                     'horaSalida' => $this->horaSalida,
+                    'precio' => $this->precio,
                     'capacidad' => $this->capacidad,
                     'idConductor' => $this->idConductor,
                     'Conductor' => $this->Conductor,
