@@ -17,6 +17,7 @@ $viaje = new viaje($db);
 $data = json_decode(file_get_contents("php://input"));
 
 $array = [];
+$viaje->idOrigen = $data->idOrigen;
 $get_destinos = $viaje->getDestinos();
 
 if ($get_destinos) {
