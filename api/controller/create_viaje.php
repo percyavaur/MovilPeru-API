@@ -8,16 +8,17 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 include_once '../config/database.php';
 include_once '../model/down/viaje.php';
 
+$data = json_decode(file_get_contents("php://input"));
 $database = new Database();
 $db = $database->getConnection();
 $viaje = new viaje($db);
 
 $viaje->idConductor = 1;
 $viaje->idVehiculo = 1;
-$viaje->horaSalida = "20:00:00";
+$viaje->horaSalida = $data->horaSalida;
 $viaje->precio = 25;
 
-$viaje->fechaSalida = "2019-06-26";
+$viaje->fechaSalida = $data->fechaSalida;
 
 for ($i = 1; $i < 10; $i++) {
     $viaje->idOrigen = $i;
