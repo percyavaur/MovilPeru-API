@@ -42,7 +42,7 @@ class viaje
 
     function getOrigenes()
     {
-        $query = "SELECT * FROM Origen";
+        $query = "SELECT * FROM places";
         $stmt = $this->conn->prepare($query);
 
         if ($stmt->execute()) {
@@ -51,7 +51,7 @@ class viaje
             for ($i = 0; $i < $num; $i++) {
                 $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-                $this->idOrigen = $row['idOrigen'];
+                $this->idOrigen = $row['idPlace'];
                 $this->departamento = $row['departamento'];
                 $this->distrito = $row['distrito'];
                 $this->direccion = $row['direccion'];
@@ -70,7 +70,7 @@ class viaje
 
     function getDestinos()
     {
-        $query = "SELECT * FROM Destino";
+        $query = "SELECT * FROM places";
         $stmt = $this->conn->prepare($query);
 
         if ($stmt->execute()) {
@@ -79,7 +79,7 @@ class viaje
             for ($i = 0; $i < $num; $i++) {
                 $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-                $this->idDestino = $row['idDestino'];
+                $this->idDestino = $row['idPlace'];
                 $this->departamento = $row['departamento'];
                 $this->distrito = $row['distrito'];
                 $this->direccion = $row['direccion'];
