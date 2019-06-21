@@ -25,6 +25,12 @@ class viaje
     public $seguro;
     public $numSeguro;
     public $SOAT;
+    public $depDestino;
+    public $disDestino;
+    public $dirDestino;
+    public $depOrigen;
+    public $disOrigen;
+    public $dirOrigen;
     public $destinos = array();
     public $origenes = array();
     public $viajes = array();
@@ -115,8 +121,14 @@ class viaje
                 $this->idViaje = $row['idViaje'];
                 $this->idOrigen = $row['idOrigen'];
                 $this->Origen = $row['Origen'];
+                $this->depOrigen = $row['depOrigen'];
+                $this->disOrigen = $row['disOrigen'];
+                $this->dirOrigen = $row['dirOrigen'];
                 $this->idDestino = $row['idDestino'];
                 $this->Destino = $row['Destino'];
+                $this->depDestino = $row['depDestino'];
+                $this->disDestino = $row['disDestino'];
+                $this->dirDestino = $row['dirDestino'];
                 $this->fechaSalida = $row['fechaSalida'];
                 $this->horaSalida = $row['horaSalida'];
                 $this->precio = $row['precio'];
@@ -134,8 +146,14 @@ class viaje
                     'idViaje' => $this->idViaje,
                     'idOrigen' => $this->idOrigen,
                     'Origen' => $this->Origen,
+                    'depOrigen' => $this->depOrigen,
+                    'disOrigen' => $this->disOrigen,
+                    'dirOrigen' => $this->dirOrigen,
                     'idDestino' => $this->idDestino,
                     'Destino' => $this->Destino,
+                    'depDestino' => $this->depDestino,
+                    'disDestino' => $this->disDestino,
+                    'dirDestino' => $this->dirDestino,
                     'fechaSalida' => $this->fechaSalida,
                     'horaSalida' => $this->horaSalida,
                     'precio' => $this->precio,
