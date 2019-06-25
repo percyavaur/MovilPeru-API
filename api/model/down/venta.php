@@ -6,6 +6,7 @@ class venta
 
     public $idVenta;
     public $idCliente;
+    public $idUsuario;
     public $idViajeIda;
     public $idViajeVuelta;
     public $cantAdultos;
@@ -27,7 +28,7 @@ class venta
     {
 
         // query para insertar un nuevo usuario con tipo especificado
-        $query = "call registerVenta(:idCliente, :idViajeIda, :idViajeVuelta, :cantAdultos, :cantNinos, :cantBebes)";
+        $query = "call registerVenta(:idUsuario, :idViajeIda, :idViajeVuelta, :cantAdultos, :cantNinos, :cantBebes)";
         // $query = "INSERT INTO " . $this->table_name . " (firstname, lastname, username, password, tipo) 
         //             VALUES (:firstname, :lastname, :username, :password, :tipo)";
 
@@ -37,7 +38,7 @@ class venta
         // limpieza
         // htmlspecialchars --> ELiminar todo rastro html
         // strip_tags --> Su funcionalidad es la de eliminar o limpiar las etiquetas HTML y PHP de una cadena string
-        $this->idCliente = htmlspecialchars(strip_tags($this->idCliente));
+        $this->idUsuario = htmlspecialchars(strip_tags($this->idUsuario));
         $this->idViajeIda = htmlspecialchars(strip_tags($this->idViajeIda));
         $this->idViajeVuelta = htmlspecialchars(strip_tags($this->idViajeVuelta));
         $this->cantAdultos = htmlspecialchars(strip_tags($this->cantAdultos));
@@ -45,7 +46,7 @@ class venta
         $this->cantBebes = htmlspecialchars(strip_tags($this->cantBebes));
 
         // bindParam reemplaza las variables de el query por las variables de php
-        $stmt->bindParam(':idCliente', $this->idCliente);
+        $stmt->bindParam(':idUsuario', $this->idUsuario);
         $stmt->bindParam(':idViajeIda', $this->idViajeIda);
         $stmt->bindParam(':idViajeVuelta', $this->idViajeVuelta);
         $stmt->bindParam(':cantAdultos', $this->cantAdultos);
