@@ -61,16 +61,15 @@ if ($venta->registerVenta()) {
             $venta->idTipoPasaje = $venta->passangersData[$i]->idTipoPasaje;
             $venta->registerPasajes();
         }
-
-        http_response_code(200);
-        $array["success"] = true;
-        echo json_encode($array);
     } catch (\Throwable $th) {
 
         $array["message"] = "C: Error, please try again.";
         $array["success"] = false;
         echo json_encode($array);
     }
+    http_response_code(200);
+    $array["success"] = true;
+    echo json_encode($array);
 } else {
 
     http_response_code(400);

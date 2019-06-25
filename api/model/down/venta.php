@@ -74,14 +74,6 @@ class venta
         $this->numDocumento = htmlspecialchars(strip_tags($this->numDocumento));
         $this->idTipoPasaje = htmlspecialchars(strip_tags($this->idTipoPasaje));
         
-        $array = [];
-        $array["idVenta"] = $this->idVenta;
-        $array["nombres"] =  $this->nombres;
-        $array["apellidos"] =  $this->apellidos;
-        $array["tipoDocumento"] =  $this->tipoDocumento;
-        $array["numDocumento"] =  $this->numDocumento;
-        $array["idTipoPasaje"] =  $this->idTipoPasaje;
-        echo json_encode($array);
         $stmt->bindParam(':idVenta', $this->idVenta);
         $stmt->bindParam(':nombres', $this->nombres);
         $stmt->bindParam(':apellidos', $this->apellidos);
