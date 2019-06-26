@@ -58,7 +58,7 @@ class news
                 $this->contenido = $row['contenido'];
                 $this->imagen = $row['imagen'];
                 $this->createDate = $row['createDate'];
-                $this->news[$i] = array(
+                $this->newsAll[$i] = array(
                     'idNews' => $this->idNews,
                     'titulo' => $this->titulo,
                     'subtitulo' => $this->subtitulo,
