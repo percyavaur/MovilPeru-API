@@ -45,7 +45,7 @@ class news
 
     function getNews()
     {
-        $query = "SELECT * FROM news";
+        $query = "SELECT * FROM news WHERE titulo !='' && subtitulo !='' && contenido !=''" ;
         $stmt = $this->conn->prepare($query);
 
         if ($stmt->execute()) {
