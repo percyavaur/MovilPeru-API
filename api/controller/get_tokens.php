@@ -18,8 +18,6 @@ $array = [];
 
 if ($news->getExpoTokens()) {
 
-    http_response_code(200);
-
     $array["success"] = true;
     $array["message"] = "Acceso Garantizado";
     $array["tokens"] = $news->tokens;

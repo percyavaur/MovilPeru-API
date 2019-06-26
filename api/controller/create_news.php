@@ -22,19 +22,11 @@ $news->imagen = $data->imagen;
 
 $array = [];
 if ($news->createNews()) {
-
-    // set response code
-    http_response_code(200);
-
-    // display message: user was created
     $array["message"] = "Noticia creada correctamente";
     $array["success"] = true;
     echo json_encode($array);
 
 } else {
-
-    // set response code
-    http_response_code(400);
 
     $array["message"] = "Error al crear noticia";
     $array["success"] = false;
