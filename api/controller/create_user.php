@@ -60,7 +60,7 @@ if (!$user->usernameExists()) {
     } else {
 
         // set response code
-        http_response_code(400);
+        // http_response_code(400);
 
         // display message: unable to create user
         $array["message"] = "Error, please try again.";
