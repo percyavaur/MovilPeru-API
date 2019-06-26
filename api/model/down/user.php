@@ -24,6 +24,7 @@ class user
     public $imagen;
     public $estadoCivil;
     public $direccion;
+    public $expoToken;
     public $users = array();
 
 
@@ -250,6 +251,22 @@ class user
             }
             return true;
         }
+        return false;
+    }
+
+    function updateToken()
+    {
+        $query = "UPDATE usuarios SET expoToken = ? WHERE idUsuario = ?";
+
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->bindParam(1, $this->expoToken);
+        $stmt->bindParam(2, $this->idUsuario);
+
+        if ($stmt->execute()) {
+            return true;
+        }
+
         return false;
     }
 }
