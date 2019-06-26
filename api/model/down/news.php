@@ -11,6 +11,8 @@ class news
     public $imagen;
     public $expoToken;
     public $idUsuario;
+    public $createDate;
+    public $newsAll = array();
     public $tokens = array();
 
     public function __construct($db)
@@ -35,6 +37,36 @@ class news
         $stmt->bindParam(':imagen', $this->imagen);
 
         if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function getNews()
+    {
+        $query = "SELECT * FROM news";
+        $stmt = $this->conn->prepare($query);
+
+        if ($stmt->execute()) {
+            $num = $stmt->rowCount();
+            for ($i = 0; $i < $num; $i++) {
+                $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                $this->idNews = $row['idNews'];
+                $this->titulo = $row['titulo'];
+                $this->subtitulo = $row['subtitulo'];
+                $this->contenido = $row['contenido'];
+                $this->imagen = $row['imagen'];
+                $this->createDate = $row['createDate'];
+                $this->news[$i] = array(
+                    'idNews' => $this->idNews,
+                    'titulo' => $this->titulo,
+                    'subtitulo' => $this->subtitulo,
+                    'contenido' => $this->contenido,
+                    'imagen' => $this->imagen,
+                    'createDate' => $this->createDate
+                );
+            }
             return true;
         } else {
             return false;
