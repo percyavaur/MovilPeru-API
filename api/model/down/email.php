@@ -1,6 +1,6 @@
 <?php
 
-class news
+class email
 {
     public $nombre;
     public $correo;
