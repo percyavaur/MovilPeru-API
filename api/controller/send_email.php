@@ -19,6 +19,9 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
     // Instantiation and passing `true` enables exceptions
     $mail = new PHPMailer(true);
+    $array["ticket"] = $data->ticket;
+    $array["destinatario"] = $data->destinatario;
+    echo json_encode($array);
     try {
 
         $mail->SMTPDebug = 0;                                       // Enable verbose debug output
