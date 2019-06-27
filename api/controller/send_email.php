@@ -10,17 +10,22 @@ include_once '../model/down/email.php';
 
 $data = json_decode(file_get_contents("php://input"));
 
-$email = new Email($data->ticket,$data->destinatario);
-
 $array = [];
-if ($email->send_mail()) {
-    $array["message"] = "El correo ha sido enviado correctamente";
-    $array["success"] = true;
-    echo json_encode($array);
+$array["ticket"] = $data->ticket;
+$array["destinatario"] = $data->destinatario;
+echo json_encode($array);
 
-} else {
-    $array["message"] = "Error al enviar correo";
-    $array["success"] = false;
+// $email = new Email($data->ticket,$data->destinatario);
 
-    echo json_encode($array);
-}
+// $array = [];
+// if ($email->send_mail()) {
+//     $array["message"] = "El correo ha sido enviado correctamente";
+//     $array["success"] = true;
+//     echo json_encode($array);
+
+// } else {
+//     $array["message"] = "Error al enviar correo";
+//     $array["success"] = false;
+
+//     echo json_encode($array);
+// }
