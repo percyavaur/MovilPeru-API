@@ -6,17 +6,14 @@ header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
-require '../libs/PHPMAILER/PHPMailer.php';
-require '../libs/PHPMAILER/SMTP.php';
-require '../libs/PHPMAILER/Exception.php';
-require '../libs/PHPMAILER/OAuth.php';
-// include_once '../model/down/email.php';
+require_once '../libs/PHPMAILER/PHPMailer.php';
+require_once '../libs/PHPMAILER/SMTP.php';
+require_once '../libs/PHPMAILER/Exception.php';
+require_once '../libs/PHPMAILER/OAuth.php';
 
-// $email = new Email();
 $email = new PHPMailer\PHPMailer\PHPMailer();
 
 $mail->isSMTP();
-
 
 $data = json_decode(file_get_contents("php://input"));
 
