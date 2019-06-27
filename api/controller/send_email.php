@@ -6,7 +6,7 @@ header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
-    // $data = json_decode(file_get_contents("php://input"));
+    $data = json_decode(file_get_contents("php://input"));
 
     use PHPMailer\PHPMailer\PHPMailer;
     use PHPMailer\PHPMailer\Exception;
@@ -39,7 +39,7 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
         // Content
         $mail->Subject = 'Movil Peru - Su Reserva ha sido exitosa';
         $mail->Body    = 'Se ha realizado una Reserva de un Viaje con número de ticket ';
-        $mail->isHTML(true);                                         // Set email format to HTML
+        $mail->isHTML(false);                                         // Set email format to HTML
 
         if(!$mail->Send()) {
             $error = 'Mail error: '.$mail->ErrorInfo; 
