@@ -26,12 +26,13 @@ $array = [];
 try {
     
     $mail->SMTPDebug = 2;                                       // Enable verbose debug output
+    $mail->isSMTP();                                            // Set mailer to use SMTP
     $mail->Host       = 'smtp.gmail.com';                       // Specify main and backup SMTP servers
-    $mail->Port       = 587;                                    // TCP port to connect to
-    $mail->SMTPSecure = 'tls';                                  // Enable TLS encryption, `ssl` also accepted
     $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
     $mail->Username   = 'movilperu.info@gmail.com';             // SMTP username
     $mail->Password   = 'jueves2706';                           // SMTP password
+    $mail->SMTPSecure = 'tls';                                  // Enable TLS encryption, `ssl` also accepted
+    $mail->Port       = 587;                                    // TCP port to connect to
 
     //Recipients
     $mail->setFrom('movilperu.info@gmail.com', 'Movil Peru');
