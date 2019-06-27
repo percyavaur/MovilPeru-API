@@ -18,11 +18,10 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
     $array = [];
 
     // Instantiation and passing `true` enables exceptions
-    $mail = new PHPMailer(true);
+    $mail = new PHPMailer();
     // $array["ticket"] = $data->ticket;
     // $array["destinatario"] = $data->destinatario;
     // echo json_encode($array);
-    try {
 
         $mail->SMTPDebug = 0;                                       // Enable verbose debug output
         $mail->isSMTP();                                            // Set mailer to use SMTP
@@ -31,7 +30,7 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
         $mail->Username   = 'movilperu.info@gmail.com';             // SMTP username
         $mail->Password   = 'jueves2706';                           // SMTP password
         $mail->SMTPSecure = 'tls';                                  // Enable TLS encryption, `ssl` also accepted
-        $mail->Port       = 587;                                    // TCP port to connect to
+        $mail->Port       = 465;                                    // TCP port to connect to
 
         //Recipients
         $mail->setFrom('movilperu.info@gmail.com', 'Movil Peru');
@@ -42,13 +41,10 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
         $mail->Body    = 'Se ha realizado una Reserva de un Viaje con número de ticket ';
         $mail->isHTML(true);                                         // Set email format to HTML
 
-        $mail->send();
-        $array["message"] = "El correo ha sido enviado correctamente";
-        $array["success"] = true;
-        echo json_encode($array);
-    } catch (Exception $e) {
-        $array["message"] = "Error al enviar correo";
-        $array["success"] = false;
-    
-        echo json_encode($array);
-    }
+        if(!$mail->Send()) {
+            $error = 'Mail error: '.$mail->ErrorInfo; 
+            return false;
+        } else {
+            $error = 'Message sent!';
+            return true;
+        }
