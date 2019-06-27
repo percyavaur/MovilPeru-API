@@ -14,7 +14,7 @@ class news
     {
         $this->asunto = "Movil Peru - Su reserva ha sido exitosa";
         $this->nombre = "Movil Peru";
-        $this->correo = "movilperu@gmail.com";
+        $this->correo = "movilperu.info@gmail.com";
         $this->telefono = "956727151";
     }
 
