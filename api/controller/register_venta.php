@@ -69,6 +69,7 @@ if ($venta->registerVenta()) {
     }
     http_response_code(200);
     $array["success"] = true;
+    $array["idVenta"] = $venta->idVenta;
     echo json_encode($array);
 } else {
 
