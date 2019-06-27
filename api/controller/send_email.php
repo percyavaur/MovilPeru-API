@@ -6,26 +6,45 @@ header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
-// include_once '../model/down/email.php';
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\Exception;
 
-$data = json_decode(file_get_contents("php://input"));
+    require 'PHPMailer/Exception.php';
+    require 'PHPMailer/PHPMailer.php';
+    require 'PHPMailer/SMTP.php';
 
-$array = [];
-$array["ticket"] = $data->ticket;
-$array["destinatario"] = $data->destinatario;
-echo json_encode($array);
+    $data = json_decode(file_get_contents("php://input"));
+    $array = [];
 
-// $email = new Email($data->ticket,$data->destinatario);
+    // Instantiation and passing `true` enables exceptions
+    $mail = new PHPMailer(true);
+    try {
 
-// $array = [];
-// if ($email->send_mail()) {
-//     $array["message"] = "El correo ha sido enviado correctamente";
-//     $array["success"] = true;
-//     echo json_encode($array);
+        $mail->SMTPDebug = 0;                                       // Enable verbose debug output
+        $mail->isSMTP();                                            // Set mailer to use SMTP
+        $mail->Host       = 'smtp.gmail.com';                       // Specify main and backup SMTP servers
+        $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+        $mail->Username   = 'movilperu.info@gmail.com';             // SMTP username
+        $mail->Password   = 'jueves2706';                           // SMTP password
+        $mail->SMTPSecure = 'tls';                                  // Enable TLS encryption, `ssl` also accepted
+        $mail->Port       = 587;                                    // TCP port to connect to
 
-// } else {
-//     $array["message"] = "Error al enviar correo";
-//     $array["success"] = false;
+        //Recipients
+        $mail->setFrom('movilperu.info@gmail.com', 'Movil Peru');
+        $mail->addAddress($this->destinatario, 'Usuario de Movil Peru');     // Add a recipient
 
-//     echo json_encode($array);
-// }
+        // Content
+        $mail->Subject = 'Movil Peru - Su Reserva ha sido exitosa';
+        $mail->Body    = 'Se ha realizado una Reserva de un Viaje con número de ticket ' + $this->ticket;
+        $mail->isHTML(true);                                         // Set email format to HTML
+
+        $mail->send();
+        $array["message"] = "El correo ha sido enviado correctamente";
+        $array["success"] = true;
+        echo json_encode($array);
+    } catch (Exception $e) {
+        $array["message"] = "Error al enviar correo";
+        $array["success"] = false;
+    
+        echo json_encode($array);
+    }
