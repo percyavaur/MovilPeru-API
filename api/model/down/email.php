@@ -22,9 +22,9 @@ class email
 
         // Instantiation and passing `true` enables exceptions
         $mail = new PHPMailer(true);
-        try {
+        // try {
     
-            $mail->SMTPDebug = 2;                                       // Enable verbose debug output
+            $mail->SMTPDebug = 0;                                       // Enable verbose debug output
             $mail->isSMTP();                                            // Set mailer to use SMTP
             $mail->Host       = 'smtp.gmail.com';                       // Specify main and backup SMTP servers
             $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
@@ -43,15 +43,15 @@ class email
             $mail->isHTML(true);                                         // Set email format to HTML
         
             $mail->send();
-            $array["message"] = "Error al enviar correo";
-            $array["success"] = false;
-            echo json_encode($array);
+        //     $array["message"] = "El correo ha sido enviado correctamente";
+        //     $array["success"] = false;
+        //     echo json_encode($array);
         
-        } catch (Exception $e) {
-            $array["message"] = "El correo ha sido enviado correctamente: $mail->ErrorInfo";
-            $array["success"] = true;
+        // } catch (Exception $e) {
+        //     $array["message"] = "Error al enviar correo $mail->ErrorInfo";
+        //     $array["success"] = true;
         
-            echo json_encode($array);
-        }
+        //     echo json_encode($array);
+        // }
     }
 }
