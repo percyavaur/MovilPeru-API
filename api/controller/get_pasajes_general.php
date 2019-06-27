@@ -24,26 +24,24 @@ $data = json_decode(file_get_contents("php://input"));
 
 $jwt = isset($data->jwt) ? $data->jwt : "";
 
-$decoded = JWT::decode($jwt, $key, array('HS256'));
-$pasaje->idUsuario = $decoded->data->idUsuario;
-
 $get_pasajes = $pasaje->getPasajesGeneral();
 $array = [];
 
 if ($jwt && $get_pasajes) {
 
-    if($pasaje->idUsuario == 1 || $pasaje->idUsuario ==2){
+    $decoded = JWT::decode($jwt, $key, array('HS256'));
+    $typeUser = $decoded->data->idRol;
+
+    if ($typeUser == 1 || $typeUser== 2) {
         $array["success"] = true;
         $array["message"] = "Acceso Garantizado";
         $array["data"] = $pasaje->pasajesa;
         echo json_encode($array);
-    }
-    else{
+    } else {
         $array["success"] = true;
         $array["message"] = "E1: Acceso Denegado";
         echo json_encode($array);
     }
-
 } else {
 
     $array["success"] = false;
