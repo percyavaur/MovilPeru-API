@@ -45,7 +45,7 @@ class news
 
     function getNews()
     {
-        $query = "SELECT * FROM news WHERE titulo !='' && subtitulo !='' && contenido !=''" ;
+        $query = "SELECT * FROM news WHERE titulo !='' && subtitulo !='' && contenido !='' ORDER BY createDate DESC" ;
         $stmt = $this->conn->prepare($query);
 
         if ($stmt->execute()) {
