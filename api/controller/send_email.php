@@ -9,9 +9,9 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
     use PHPMailer\PHPMailer\PHPMailer;
     use PHPMailer\PHPMailer\Exception;
 
-    require 'PHPMAILER/Exception.php';
-    require 'PHPMAILER/PHPMailer.php';
-    require 'PHPMAILER/SMTP.php';
+    require 'PHPMailer/Exception.php';
+    require 'PHPMailer/PHPMailer.php';
+    require 'PHPMailer/SMTP.php';
 
     $data = json_decode(file_get_contents("php://input"));
     $array = [];
