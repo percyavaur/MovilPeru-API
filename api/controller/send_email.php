@@ -17,13 +17,12 @@ $email->ticket = $data->ticket;
 
 $array = [];
 if ($email->send_mail()) {
-    $array["message"] = "Noticia creada correctamente";
     $array["success"] = true;
     echo json_encode($array);
 
 } else {
 
-    $array["message"] = "Error al crear noticia";
+    $array["message"] = "Error al enviar correo";
     $array["success"] = false;
 
     echo json_encode($array);
