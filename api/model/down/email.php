@@ -12,9 +12,10 @@ class email
     public $ticket;
     public $destinatario;
 
-    public function __construct()
+    public function __construct($tic,$des)
     {
-
+        $this->ticket = $tic;
+        $this->destinatario = $des;
     }
 
     function send_mail(){

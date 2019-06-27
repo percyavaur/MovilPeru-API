@@ -8,12 +8,9 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 include_once '../model/down/email.php';
 
-$email = new Email();
-
 $data = json_decode(file_get_contents("php://input"));
 
-$email->correoDestinatario = $data->destinatario;
-$email->ticket = $data->ticket;
+$email = new Email($data->ticket,$data->destinatario);
 
 $array = [];
 if ($email->send_mail()) {
