@@ -76,4 +76,56 @@ class pasaje
         }
         return false;
     }
+
+    public function getPasajesGeneral()
+    {
+
+        $query = "SELECT * FROM pasajesInfo ORDER BY fechaCompra DESC";
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->bindParam(1, $this->idUsuario);
+
+        if ($stmt->execute()) {
+
+            $num = $stmt->rowCount();
+
+            for ($i = 0; $i < $num; $i++) {
+                $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                // assign values to object properties
+                $this->idPasaje = $row['idPasaje'];
+                $this->idVenta = $row['idVenta'];
+                $this->idUsuario = $row['idUsuario'];
+                $this->comprador = $row['comprador'];
+                $this->idCliente = $row['idCliente'];
+                $this->tipoDocumento = $row['tipoDocumento'];
+                $this->numDocumento = $row['numDocumento'];
+                $this->apellidos = $row['apellidos'];
+                $this->nombres = $row['nombres'];
+                $this->idaOrigen = $row['idaOrigen'];
+                $this->idaDestino = $row['idaDestino'];
+                $this->vueltaOrigen = $row['vueltaOrigen'];
+                $this->vueltaDestino = $row['vueltaDestino'];
+                $this->fechaCompra = $row['fechaCompra'];
+
+                $this->pasajesa[$i] = array(
+                    'idPasaje' => $this->idPasaje,
+                    'idVenta' => $this->idVenta,
+                    'idUsuario' => $this->idUsuario,
+                    'comprador' => $this->comprador,
+                    'idCliente' => $this->idCliente,
+                    'tipoDocumento' => $this->tipoDocumento,
+                    'numDocumento' => $this->numDocumento,
+                    'apellidos' => $this->apellidos,
+                    'nombres' => $this->nombres,
+                    'idaOrigen' => $this->idaOrigen,
+                    'idaDestino' => $this->idaDestino,
+                    'vueltaOrigen' => $this->vueltaOrigen,
+                    'vueltaDestino' => $this->vueltaDestino,
+                    'fechaCompra' => $this->fechaCompra
+                );
+            }
+            return true;
+        }
+        return false;
+    }
 }
