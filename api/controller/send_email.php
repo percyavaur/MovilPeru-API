@@ -1,50 +1,46 @@
 <?php
-// required headers
-header("Access-Control-Allow-Origin:  *");
-header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Methods: POST");
-header("Access-Control-Max-Age: 3600");
-header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+// Import PHPMailer classes into the global namespace
+// These must be at the top of your script, not inside a function
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
-    $data = json_decode(file_get_contents("php://input"));
+// Load Composer's autoloader
+require '../vendor/autoload.php';
 
-    use PHPMailer\PHPMailer\PHPMailer;
-    use PHPMailer\PHPMailer\Exception;
+// Instantiation and passing `true` enables exceptions
+$mail = new PHPMailer(true);
 
-    require('PHPMailer/Exception.php');
-    require('PHPMailer/PHPMailer.php');
-    require('PHPMailer/SMTP.php');
+try {
+    //Server settings
+    $mail->SMTPDebug = 2;                                       // Enable verbose debug output
+    $mail->isSMTP();                                            // Set mailer to use SMTP
+    $mail->Host       = 'smtp.gmail.com';  // Specify main and backup SMTP servers
+    $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+    $mail->Username   = 'movilperu.info@gmail.com';                     // SMTP username
+    $mail->Password   = 'movilperu';                               // SMTP password
+    $mail->SMTPSecure = 'tls';                                  // Enable TLS encryption, `ssl` also accepted
+    $mail->Port       = 587;                                    // TCP port to connect to
 
-    $array = [];
+    //Recipients
+    $mail->setFrom('movilperu.info@gmail.com');
+    // $mail->addAddress('joe@example.net', 'Joe User');     // Add a recipient
+    $mail->addAddress('oscarmbravoc@gmail.com');               // Name is optional
+    // $mail->addReplyTo('info@example.com', 'Information');
+    // $mail->addCC('cc@example.com');
+    // $mail->addBCC('bcc@example.com');
 
-    // Instantiation and passing `true` enables exceptions
-    $mail = new PHPMailer();
-    // $array["ticket"] = $data->ticket;
-    // $array["destinatario"] = $data->destinatario;
-    // echo json_encode($array);
+    // Attachments
+    // $mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
+    // $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
 
-        $mail->SMTPDebug = 0;                                       // Enable verbose debug output
-        $mail->isSMTP();                                            // Set mailer to use SMTP
-        $mail->Host       = 'smtp.gmail.com';                       // Specify main and backup SMTP servers
-        $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-        $mail->Username   = 'movilperu.info@gmail.com';             // SMTP username
-        $mail->Password   = 'jueves2706';                           // SMTP password
-        $mail->SMTPSecure = 'tls';                                  // Enable TLS encryption, `ssl` also accepted
-        $mail->Port       = 465;                                    // TCP port to connect to
+    // Content
+    $mail->isHTML(true);                                  // Set email format to HTML
+    $mail->Subject = 'Here is the subject';
+    $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
+    $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
-        //Recipients
-        $mail->setFrom('movilperu.info@gmail.com', 'Movil Peru');
-        $mail->addAddress('oscarmbravoc@gmail.com', 'Usuario de Movil Peru');     // Add a recipient
-
-        // Content
-        $mail->Subject = 'Movil Peru - Su Reserva ha sido exitosa';
-        $mail->Body    = 'Se ha realizado una Reserva de un Viaje con número de ticket ';
-        $mail->isHTML(false);                                         // Set email format to HTML
-
-        if(!$mail->Send()) {
-            $error = 'Mail error: '.$mail->ErrorInfo; 
-            return false;
-        } else {
-            $error = 'Message sent!';
-            return true;
-        }
+    $mail->send();
+    echo 'Message has been sent';
+} catch (Exception $e) {
+    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+}
