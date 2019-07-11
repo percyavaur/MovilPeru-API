@@ -33,6 +33,11 @@ if($pasaje->tripInfoPassenger()){
     try {
         http_response_code(200);
         $infopasajes = $pasaje->pasajesa;
+        $html = '';
+
+        foreach ($infopasajes as $value) {
+            $html .= "<pre>$value</pre><br>";
+        }
         
         // Instantiation and passing `true` enables exceptions
         $mail = new PHPMailer(true);
@@ -64,7 +69,7 @@ if($pasaje->tripInfoPassenger()){
             $mail->isHTML(true);                                  // Set email format to HTML
             $mail->Subject = 'Ha realizado una reserva con Movil Perú';
             $mail->Body    = "Usted ha realizado una reserva con el número de ticket: <b style='color:red;'>$ticket</b><br>
-            <pre>$infopasajes</pre>";
+            $html";
             $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
             
             $mail->send();
