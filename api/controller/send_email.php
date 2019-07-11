@@ -35,9 +35,9 @@ if($pasaje->tripInfoPassenger()){
         $infopasajes = $pasaje->pasajesa;
         $html = '';
 
-        foreach ($infopasajes as $value) {
-            $html .= $value;
-        }
+        // foreach ($infopasajes as $value) {
+        //     $html .= $value;
+        // }
         
         // Instantiation and passing `true` enables exceptions
         $mail = new PHPMailer(true);
@@ -74,7 +74,7 @@ if($pasaje->tripInfoPassenger()){
             // Activo condificacción utf-8
             $mail->CharSet = 'UTF-8';
             $mail->send();
-            var_dump($html);
+            var_dump($infopasajes);
         } catch (Exception $e) {
             echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
         }
