@@ -36,9 +36,7 @@ if($pasaje->tripInfoPassenger()){
         $html = '';
 
         foreach ($infopasajes as $value) {
-            foreach ($value as $key) {
-                $html .= "<pre>$key</pre><br>";
-            }
+            $html .= $value;
         }
         
         // Instantiation and passing `true` enables exceptions
@@ -46,7 +44,7 @@ if($pasaje->tripInfoPassenger()){
         
         try {
             //Server settings
-            $mail->SMTPDebug = 2;                                       // Enable verbose debug output
+            $mail->SMTPDebug = 0;                                       // Enable verbose debug output
             $mail->isSMTP();                                            // Set mailer to use SMTP
             $mail->Host       = 'smtp.gmail.com';  // Specify main and backup SMTP servers
             $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
