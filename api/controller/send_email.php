@@ -32,7 +32,7 @@ if($pasaje->tripInfoPassenger()){
 
     try {
         http_response_code(200);
-        $infopasajes = $viaje->pasajesa;
+        $infopasajes = $pasaje->pasajesa;
         
         // Instantiation and passing `true` enables exceptions
         $mail = new PHPMailer(true);
