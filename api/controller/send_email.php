@@ -69,8 +69,107 @@ if($pasaje->tripInfoPassenger()){
             // Content
             $mail->isHTML(true);                                  // Set email format to HTML
             $mail->Subject = 'Ha realizado una reserva con Movil Perú';
-            $mail->Body    = "Usted ha realizado una reserva con el número de ticket: <b style='color:red;'>$ticket</b><br>
-            $html";
+            $mail->Body    = "<!DOCTYPE html>
+            <html lang='en'>
+            <head>
+                <meta charset='UTF-8'>
+                <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+                <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+                <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' crossorigin='anonymous'>
+            </head>
+            <body>
+                <div class='d-flex flex-column bg-white p-4' style='border-radius: 10px;'>
+                    <div class='d-flex flex-row justify-content-between'>
+                        <h1 class='text-danger'>Ida y Vuelta</h1>
+                        <h1 class='text-dark'>RESERVA N° $ticket</h1>
+                        <h1 class='text-danger'>Fecha de Ida y de Vuelta</h1>
+                    </div>
+                    <div class='d-flex flex-row justify-content-between mt-3 mb-3'>
+                        <div class='d-flex flex-column' style='width: 47%;'>
+                            <span title='Lima, Los Olivos, Terminal los olivos-Piura, Mancora, Terminal Mancora'
+                                class='text-danger d-flex flex-row alig-items-center' style='width: 100%; max-height: 27px;'>
+                                Ida:
+                                <span class='text-dark' style='text-overflow: ellipsis; overflow: hidden;'>Lima, Los Olivos,
+                                    Terminal los olivos - Piura, Mancora, Terminal Mancora</span>
+                            </span>
+                            <span class='text-danger d-flex flex-row alig-items-center'>
+                                Hora de Ida:
+                                <span class='text-dark pl-2'> 16:00:00</span></span>
+                        </div>
+                        <div class='d-flex flex-column' style='width: 47%;'><span
+                                title='Piura, Mancora, Terminal Mancora-Lima, Los Olivos, Terminal los olivos'
+                                class='text-danger d-flex flex-row alig-items-center' style='width: 100%; max-height: 27px;'>
+                                Vuelta:
+                                <span class='text-dark' style='text-overflow: ellipsis; overflow: hidden;'>Piura, Mancora,
+                                    Terminal Mancora - Lima, Los Olivos, Terminal los olivos</span></span><span
+                                class='text-danger d-flex flex-row alig-items-center'>
+                                Hora de Vuelta:
+                                <span class='text-dark pl-2'> 15:00:00</span></span></div>
+                    </div>
+                    <div class='d-flex flex-column align-items-start'>
+                        <h2>Información de Pasajeros</h2>
+                        <div class='d-flex flex-column align-items-start p-2' style='width: 100%;'>
+                            <h3>Adultos: 1</h3>
+                            <div class='bg-tabs mb-3 p-4' style='width: 100%; border-radius: 10px;'>
+                                <div class='d-flex flex-row justify-content-between align-items-center mb-3'>
+                                    <div class='d-flex flex-row' style='width: 33%;'>
+                                        <label for=''>NOMBRES: </label>
+                                        <span class='ml-2'>NOMBRES</span>
+                                    </div>
+                                    <div class='d-flex flex-row' style='width: 33%;'>
+                                        <label for=''>APELLIDOS: </label>
+                                        <span class='ml-2'>APELLIDOS</span>
+                                    </div>
+                                    <div class='d-flex flex-row' style='width: 33%;'>
+                                        <label for=''>DOCUMENTO: </label>
+                                        <span class='ml-2'>DOCUMENTO</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='d-flex flex-column align-items-start p-2' style='width: 100%;'>
+                            <h3>Niños: 1</h3>
+                            <div class='bg-tabs mb-3 p-4' style='width: 100%; border-radius: 10px;'>
+                                <div class='d-flex flex-row justify-content-between align-items-center mb-3'>
+                                    <div class='d-flex flex-row' style='width: 33%;'>
+                                        <label for=''>NOMBRES: </label>
+                                        <span class='ml-2'>NOMBRES</span>
+                                    </div>
+                                    <div class='d-flex flex-row' style='width: 33%;'>
+                                        <label for=''>APELLIDOS: </label>
+                                        <span class='ml-2'>APELLIDOS</span>
+                                    </div>
+                                    <div class='d-flex flex-row' style='width: 33%;'>
+                                        <label for=''>DOCUMENTO: </label>
+                                        <span class='ml-2'>DOCUMENTO</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='d-flex flex-column align-items-start p-2' style='width: 100%;'>
+                            <h3>Bebés: 1</h3>
+                            <div class='bg-tabs mb-3 p-4' style='width: 100%; border-radius: 10px;'>
+                                <div class='d-flex flex-row justify-content-between align-items-center mb-3'>
+                                    <div class='d-flex flex-row' style='width: 33%;'>
+                                        <label for=''>NOMBRES: </label>
+                                        <span class='ml-2'>NOMBRES</span>
+                                    </div>
+                                    <div class='d-flex flex-row' style='width: 33%;'>
+                                        <label for=''>APELLIDOS: </label>
+                                        <span class='ml-2'>APELLIDOS</span>
+                                    </div>
+                                    <div class='d-flex flex-row' style='width: 33%;'>
+                                        <label for=''>DOCUMENTO: </label>
+                                        <span class='ml-2'>DOCUMENTO</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </body>
+            
+            </html>";
             $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
             // Activo condificacción utf-8
             $mail->CharSet = 'UTF-8';
