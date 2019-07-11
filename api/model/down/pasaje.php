@@ -23,6 +23,7 @@ class pasaje
     public $vueltaFecha;
     public $vueltaHora;
     public $conductor;
+    public $idTipoPasaje;
     public $pasajesa = array();
 
     public function __construct($db)
@@ -115,6 +116,7 @@ class pasaje
                 $this->vueltaFecha = $row['vueltaFecha'];
                 $this->vueltaHora = $row['vueltaHora'];
                 $this->conductor = $row['conductor'];
+                $this->idTipoPasaje = $row['idTipoPasaje'];
 
                 $this->pasajesa[$i] = array(
                     'idPasaje' => $this->idPasaje,
@@ -136,6 +138,7 @@ class pasaje
                     'vueltaFecha' => $this->vueltaFecha,
                     'vueltaHora' => $this->vueltaHora,
                     'conductor' => $this->conductor,
+                    'idTipoPasaje' => $this->idTipoPasaje
                 );
             }
             return true;
