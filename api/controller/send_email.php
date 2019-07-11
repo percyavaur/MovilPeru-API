@@ -35,9 +35,9 @@ if($pasaje->tripInfoPassenger()){
         $infopasajes = $pasaje->pasajesa;
         $html = '';
 
-        // foreach ($infopasajes as $value) {
-        //     $html .= "<pre>$value</pre><br>";
-        // }
+        foreach ($infopasajes as $value) {
+            $html .= "<pre>$value</pre><br>";
+        }
         
         // Instantiation and passing `true` enables exceptions
         $mail = new PHPMailer(true);
@@ -71,9 +71,10 @@ if($pasaje->tripInfoPassenger()){
             $mail->Body    = "Usted ha realizado una reserva con el número de ticket: <b style='color:red;'>$ticket</b><br>
             $html";
             $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
-            
+            // Activo condificacción utf-8
+            $mail->CharSet = 'UTF-8';
             $mail->send();
-            var_dump($infopasajes);
+            var_dump($html);
         } catch (Exception $e) {
             echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
         }
