@@ -35,9 +35,9 @@ if($pasaje->tripInfoPassenger()){
         $infopasajes = $pasaje->pasajesa;
         $html = '';
 
-        foreach ($infopasajes as $value) {
-            $html .= "<pre>$value</pre><br>";
-        }
+        // foreach ($infopasajes as $value) {
+        //     $html .= "<pre>$value</pre><br>";
+        // }
         
         // Instantiation and passing `true` enables exceptions
         $mail = new PHPMailer(true);
@@ -73,7 +73,7 @@ if($pasaje->tripInfoPassenger()){
             $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
             
             $mail->send();
-            echo $html;
+            var_dump($infopasajes);
         } catch (Exception $e) {
             echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
         }
