@@ -36,7 +36,9 @@ if($pasaje->tripInfoPassenger()){
         $html = '';
 
         foreach ($infopasajes as $value) {
-            $html .= "<pre>$value</pre><br>";
+            foreach ($value as $key) {
+                $html .= "<pre>$key</pre><br>";
+            }
         }
         
         // Instantiation and passing `true` enables exceptions
