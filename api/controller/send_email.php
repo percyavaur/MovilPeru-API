@@ -33,13 +33,13 @@ if($pasaje->tripInfoPassenger()){
     try {
         http_response_code(200);
         $infopasajes = $pasaje->pasajesa;
-        $html_adultos = "<div style='display:flex; flex-direction:column; align-items: flex-start; padding: 0.75rem;width: 100%;'>
+        $html_adultos = "<div style='flex-direction:column; align-items: flex-start; padding: 0.75rem;width: 100%;'>
         <h3>Adultos</h3>";
         $contador_adultos = 0;
-        $html_ninos = "<div style='display:flex; flex-direction:column; align-items: flex-start; padding: 0.75rem;width: 100%;'>
+        $html_ninos = "<div style='flex-direction:column; align-items: flex-start; padding: 0.75rem;width: 100%;'>
         <h3>Niños</h3>";
         $contador_ninos = 0;
-        $html_bebes = "<div style='display:flex; flex-direction:column; align-items: flex-start; padding: 0.75rem;width: 100%;'>
+        $html_bebes = "<div style='flex-direction:column; align-items: flex-start; padding: 0.75rem;width: 100%;'>
         <h3>Bebés</h3>";
         $contador_bebes = 0;
         $html_vuelta = "";
@@ -67,7 +67,7 @@ if($pasaje->tripInfoPassenger()){
                 $html_adultos .= "
                     <div style='bg-tabs margin-bottom: 1rem; padding: 1.5rem;width: 100%; border-radius: 10px;'>
                         <div style='display:flex; flex-direction:row; justify-content-between align-items: center; margin-bottom: 1rem;'>
-                            <div style='display:flex; flex-direction:row;width: 33%;'>
+                            <div style='display:flex; flex-direction:row;'>
                                 <label for=''>NOMBRES: </label>
                                 <span style='margin-left: 0.75rem;'>".$value['nombres']."</span>
                                 <label for=''>APELLIDOS: </label>
@@ -83,7 +83,7 @@ if($pasaje->tripInfoPassenger()){
                 $html_ninos .= "
                     <div style='bg-tabs margin-bottom: 1rem; padding: 1.5rem;width: 100%; border-radius: 10px;'>
                         <div style='display:flex; flex-direction:row; justify-content-between align-items: center; margin-bottom: 1rem;'>
-                            <div style='display:flex; flex-direction:row;width: 33%;'>
+                            <div style='display:flex; flex-direction:row;'>
                                 <label for=''>NOMBRES: </label>
                                 <span style='margin-left: 0.75rem;'>".$value['nombres']."</span>
                                 <label for=''>APELLIDOS: </label>
@@ -99,7 +99,7 @@ if($pasaje->tripInfoPassenger()){
                 $html_bebes .= "
                 <div style='bg-tabs margin-bottom: 1rem; padding: 1.5rem;width: 100%; border-radius: 10px;'>
                     <div style='display:flex; flex-direction:row; justify-content-between align-items: center; margin-bottom: 1rem;'>
-                        <div style='display:flex; flex-direction:row;width: 33%;'>
+                        <div style='display:flex; flex-direction:row;'>
                             <label for=''>NOMBRES: </label>
                             <span style='margin-left: 0.75rem;'>".$value['nombres']."</span>
                             <label for=''>APELLIDOS: </label>
@@ -170,7 +170,7 @@ if($pasaje->tripInfoPassenger()){
                     <h3>Comprador: $comprador</h3>
                     <h3 style='color:#dc3545'>$texto_ida_o_vuelta</h3>
                     <h3 style='color:#dc3545'>Fecha de Ida: $ida_fecha</h3><br>
-                    <div style='display:flex; flex-direction:row; justify-content:space-between; margin-top: 1rem; margin-bottom: 1rem;'>
+                    <div style='flex-direction:row; justify-content:space-between; margin-top: 1rem; margin-bottom: 1rem;'>
                         <div style='display:flex; flex-direction:column;width: 47%;'>
                             <span title='$ida_origen_destino'
                                 style='display:flex; flex-direction:row; align-items:center; color: #dc3545;width: 100%; max-height: 27px;'>
