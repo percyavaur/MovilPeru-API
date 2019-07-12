@@ -63,6 +63,7 @@ if($pasaje->tripInfoPassenger()){
                     $vuelta_fecha = $value['vueltaFecha'];
                     $vuelta_hora = $value['vueltaHora'];
                 }
+                $contador_adultos = $contador_adultos + 1;
                 $html_adultos .= "
                     <div style='bg-tabs margin-bottom: 1rem; padding: 1.5rem;width: 100%; border-radius: 10px;'>
                         <div style='display:flex; flex-direction:row; justify-content-between align-items: center; margin-bottom: 1rem;'>
@@ -78,6 +79,7 @@ if($pasaje->tripInfoPassenger()){
                     </div>
                 </div>";
             }else if($value["idTipoPasaje"] == 2){
+                $contador_ninos = $contador_ninos + 1;
                 $html_ninos .= "
                     <div style='bg-tabs margin-bottom: 1rem; padding: 1.5rem;width: 100%; border-radius: 10px;'>
                         <div style='display:flex; flex-direction:row; justify-content-between align-items: center; margin-bottom: 1rem;'>
@@ -93,6 +95,7 @@ if($pasaje->tripInfoPassenger()){
                     </div>
                 </div>";
             }else{
+                $contador_bebes = $contador_bebes + 1;
                 $html_bebes .= "
                 <div style='bg-tabs margin-bottom: 1rem; padding: 1.5rem;width: 100%; border-radius: 10px;'>
                     <div style='display:flex; flex-direction:row; justify-content-between align-items: center; margin-bottom: 1rem;'>
@@ -108,6 +111,11 @@ if($pasaje->tripInfoPassenger()){
                 </div>
             </div>";
             }
+        }
+        if($contador_ninos == 0){
+            $html_ninos = '';
+        }else if($contador_bebes == 0){
+            $html_bebes = '';
         }
         
         if($vuelta == false){
@@ -173,7 +181,7 @@ if($pasaje->tripInfoPassenger()){
                             <span style='color: #dc3545; display:flex; flex-direction:row; align-items:center;'>
                                 Hora de Ida:
                                 <span style='color: black; padding-left: 0.75rem;'>$ida_hora</span></span>
-                        </div>
+                        </div><br>
                         $html_vuelta
                     </div><br>
                     <div style='flex-direction:column; align-items: flex-start;'>
