@@ -33,11 +33,93 @@ if($pasaje->tripInfoPassenger()){
     try {
         http_response_code(200);
         $infopasajes = $pasaje->pasajesa;
-        $html = '';
+        $html_adultos = "<div style='display:flex; flex-direction:column; align-items: flex-start; padding: 0.75rem;width: 100%;'>
+        <h3>Adultos</h3>";
+        $contador_adultos = 0;
+        $html_ninos = "<div style='display:flex; flex-direction:column; align-items: flex-start; padding: 0.75rem;width: 100%;'>
+        <h3>Niños</h3>";
+        $contador_ninos = 0;
+        $html_bebes = "<div style='display:flex; flex-direction:column; align-items: flex-start; padding: 0.75rem;width: 100%;'>
+        <h3>Bebés</h3>";
+        $contador_bebes = 0;
+        $html_vuelta = "";
+        if($infopasajes[0]['vueltaOrigen'] == null){
+            $texto_ida_o_vuelta = "Solo Ida";
+        }else{
+            $texto_ida_o_vuelta = "Ida y Vuelta";
+            $html_vuelta = "
+            <div style='display:flex; flex-direction:column;width: 47%;'><span
+                    title='$infopasajes[0]['vueltaOrigen'] - $infopasajes[0]['vueltaDestino']'
+                    style='color: #dc3545; display:flex; flex-direction:row; align-items:center;width: 100%; max-height: 27px;'>
+                    Vuelta:
+                    <span style='color: black;' style='text-overflow: ellipsis; overflow: hidden;'>
+                    $infopasajes[0]['vueltaOrigen'] - $infopasajes[0]['vueltaDestino']</span></span><span
+                    style='color: #dc3545; display:flex; flex-direction:row; align-items:center'>
+                    Hora de Vuelta:
+                    <span style='color: black; padding-left: 0.75rem;'> $infopasajes[0]['vueltaHora']</span></span>
+            </div>";
+        }
 
-        // foreach ($infopasajes as $value) {
-        //     $html .= $value;
-        // }
+        foreach ($infopasajes as $value) {
+            if($value["idTipoPasaje"] == 1){
+                $html_adultos .= "
+                    <div style='bg-tabs margin-bottom: 1rem; padding: 1.5rem;width: 100%; border-radius: 10px;'>
+                        <div style='display:flex; flex-direction:row; justify-content-between align-items: center; margin-bottom: 1rem;'>
+                            <div style='display:flex; flex-direction:row;width: 33%;'>
+                                <label for=''>NOMBRES: </label>
+                                <span style='margin-left: 0.75rem;'>".$value['nombres']."</span>
+                            </div>
+                            <div style='display:flex; flex-direction:row;width: 33%;'>
+                                <label for=''>APELLIDOS: </label>
+                                <span style='margin-left: 0.75rem;'>".$value['apellidos']."</span>
+                            </div>
+                            <div style='display:flex; flex-direction:row;width: 33%;'>
+                                <label for=''>".$value['tipoDocumento']."</label>
+                                <span style='margin-left: 0.75rem;'>".$value['numDocumento']."</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>";
+            }else if($value["idTipoPasaje"] == 2){
+                $html_ninos .= "
+                    <div style='bg-tabs margin-bottom: 1rem; padding: 1.5rem;width: 100%; border-radius: 10px;'>
+                        <div style='display:flex; flex-direction:row; justify-content-between align-items: center; margin-bottom: 1rem;'>
+                            <div style='display:flex; flex-direction:row;width: 33%;'>
+                                <label for=''>NOMBRES: </label>
+                                <span style='margin-left: 0.75rem;'>".$value['nombres']."</span>
+                            </div>
+                            <div style='display:flex; flex-direction:row;width: 33%;'>
+                                <label for=''>APELLIDOS: </label>
+                                <span style='margin-left: 0.75rem;'>".$value['apellidos']."</span>
+                            </div>
+                            <div style='display:flex; flex-direction:row;width: 33%;'>
+                                <label for=''>".$value['tipoDocumento']."</label>
+                                <span style='margin-left: 0.75rem;'>".$value['numDocumento']."</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>";
+            }else{
+                $html_bebes .= "
+                    <div style='bg-tabs margin-bottom: 1rem; padding: 1.5rem;width: 100%; border-radius: 10px;'>
+                        <div style='display:flex; flex-direction:row; justify-content-between align-items: center; margin-bottom: 1rem;'>
+                            <div style='display:flex; flex-direction:row;width: 33%;'>
+                                <label for=''>NOMBRES: </label>
+                                <span style='margin-left: 0.75rem;'>".$value['nombres']."</span>
+                            </div>
+                            <div style='display:flex; flex-direction:row;width: 33%;'>
+                                <label for=''>APELLIDOS: </label>
+                                <span style='margin-left: 0.75rem;'>".$value['apellidos']."</span>
+                            </div>
+                            <div style='display:flex; flex-direction:row;width: 33%;'>
+                                <label for=''>".$value['tipoDocumento']."</label>
+                                <span style='margin-left: 0.75rem;'>".$value['numDocumento']."</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>";
+            }
+        }
         
         // Instantiation and passing `true` enables exceptions
         $mail = new PHPMailer(true);
@@ -68,107 +150,32 @@ if($pasaje->tripInfoPassenger()){
             // Content
             $mail->isHTML(true);                                  // Set email format to HTML
             $mail->Subject = 'Ha realizado una reserva con Movil Perú';
-            $mail->Body    = "<!DOCTYPE html>
-            <html lang='en'>
-            <head>
-                <meta charset='UTF-8'>
-                <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-                <meta http-equiv='X-UA-Compatible' content='ie=edge'>
-                <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' crossorigin='anonymous'>
-            </head>
-            <body>
-                <div style='display:flex; flex-direction:column; padding: 1.5rem; border-radius: 10px;'>
-                    <div style='display:flex; flex-direction:row; justify-content:space-between;'>
-                        <h1 style='color: #dc3545;'>Ida y Vuelta</h1>
-                        <h1 style='color: black;'>RESERVA N° $ticket</h1>
-                        <h1 style='color: #dc3545;'>Fecha de Ida y de Vuelta</h1>
-                    </div>
+            $mail->Body    = "
+            <center style='display:flex; flex-direction:column; padding: 1.5rem; border-radius: 10px;'>
+                    <h1 style='color:black;'> RESERVA N° $ticket</h1><br>
+                    <h3 style='color:#dc3545'>$texto_ida_o_vuelta</h3>
+                    <h3 style='color:#dc3545'>Fecha de Salida: $infopasajes[0]['idaFecha']</h3><br>
                     <div style='display:flex; flex-direction:row; justify-content:space-between; margin-top: 1rem; margin-bottom: 1rem;'>
                         <div style='display:flex; flex-direction:column;width: 47%;'>
-                            <span title='Lima, Los Olivos, Terminal los olivos-Piura, Mancora, Terminal Mancora'
+                            <span title='$infopasajes[0]['idaOrigen'] - $infopasajes[0]['idaDestino']'
                                 style='display:flex; flex-direction:row; align-items:center; color: #dc3545;width: 100%; max-height: 27px;'>
                                 Ida:
-                                <span style='color: black;text-overflow: ellipsis; overflow: hidden;'>Lima, Los Olivos,
-                                    Terminal los olivos - Piura, Mancora, Terminal Mancora</span>
+                                <span style='color: black;text-overflow: ellipsis; overflow: hidden;'>
+                                $infopasajes[0]['idaOrigen'] - $infopasajes[0]['idaDestino']</span>
                             </span>
                             <span style='color: #dc3545; display:flex; flex-direction:row; align-items:center;'>
                                 Hora de Ida:
-                                <span style='color: black; padding-left: 0.75rem;'> 16:00:00</span></span>
+                                <span style='color: black; padding-left: 0.75rem;'>$infopasajes[0]['idaHora']</span></span>
                         </div>
-                        <div style='display:flex; flex-direction:column;width: 47%;'><span
-                                title='Piura, Mancora, Terminal Mancora-Lima, Los Olivos, Terminal los olivos'
-                                style='color: #dc3545; display:flex; flex-direction:row; align-items:center;width: 100%; max-height: 27px;'>
-                                Vuelta:
-                                <span style='color: black;' style='text-overflow: ellipsis; overflow: hidden;'>Piura, Mancora,
-                                    Terminal Mancora - Lima, Los Olivos, Terminal los olivos</span></span><span
-                                style='color: #dc3545; display:flex; flex-direction:row; align-items:center'>
-                                Hora de Vuelta:
-                                <span style='color: black; padding-left: 0.75rem;'> 15:00:00</span></span></div>
-                    </div>
+                        $html_vuelta
+                    </div><br>
                     <div style='display:flex; flex-direction:column; align-items: flex-start;'>
                         <h2>Información de Pasajeros</h2>
-                        <div style='display:flex; flex-direction:column; align-items: flex-start; padding: 0.75rem;width: 100%;'>
-                            <h3>Adultos: 1</h3>
-                            <div style='bg-tabs margin-bottom: 1rem; padding: 1.5rem;width: 100%; border-radius: 10px;'>
-                                <div style='display:flex; flex-direction:row; justify-content-between align-items: center; margin-bottom: 1rem;'>
-                                    <div style='display:flex; flex-direction:row;width: 33%;'>
-                                        <label for=''>NOMBRES: </label>
-                                        <span style='margin-left: 0.75rem;'>NOMBRES</span>
-                                    </div>
-                                    <div style='display:flex; flex-direction:row;width: 33%;'>
-                                        <label for=''>APELLIDOS: </label>
-                                        <span style='margin-left: 0.75rem;'>APELLIDOS</span>
-                                    </div>
-                                    <div style='display:flex; flex-direction:row;width: 33%;'>
-                                        <label for=''>DOCUMENTO: </label>
-                                        <span style='margin-left: 0.75rem;'>NUMERO DE DOCUMENTO</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div style='display:flex; flex-direction:column; align-items: flex-start; padding: 0.75rem;width: 100%;'>
-                            <h3>Niños: 1</h3>
-                            <div style='bg-tabs margin-bottom: 1rem; padding: 1.5rem;width: 100%; border-radius: 10px;'>
-                                <div style='display:flex; flex-direction:row; justify-content-between align-items: center; margin-bottom: 1rem;'>
-                                    <div style='display:flex; flex-direction:row;width: 33%;'>
-                                        <label for=''>NOMBRES: </label>
-                                        <span style='margin-left: 0.75rem;'>NOMBRES</span>
-                                    </div>
-                                    <div style='display:flex; flex-direction:row;width: 33%;'>
-                                        <label for=''>APELLIDOS: </label>
-                                        <span style='margin-left: 0.75rem;'>APELLIDOS</span>
-                                    </div>
-                                    <div style='display:flex; flex-direction:row;width: 33%;'>
-                                        <label for=''>DOCUMENTO: </label>
-                                        <span style='margin-left: 0.75rem;'>NUMERO DE DOCUMENTO</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div style='display:flex; flex-direction:column; align-items: flex-start; padding: 0.75rem;width: 100%;'>
-                            <h3>Bebés: 1</h3>
-                            <div style='bg-tabs margin-bottom: 1rem; padding: 1.5rem;width: 100%; border-radius: 10px;'>
-                                <div style='display:flex; flex-direction:row; justify-content-between align-items: center; margin-bottom: 1rem;'>
-                                    <div style='display:flex; flex-direction:row;width: 33%;'>
-                                        <label for=''>NOMBRES: </label>
-                                        <span style='margin-left: 0.75rem;'>NOMBRES</span>
-                                    </div>
-                                    <div style='display:flex; flex-direction:row;width: 33%;'>
-                                        <label for=''>APELLIDOS: </label>
-                                        <span style='margin-left: 0.75rem;'>APELLIDOS</span>
-                                    </div>
-                                    <div style='display:flex; flex-direction:row;width: 33%;'>
-                                        <label for=''>DOCUMENTO: </label>
-                                        <span style='margin-left: 0.75rem;'>NUMERO DE DOCUMENTO</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        $html_adultos<br>
+                        $html_ninos<br>
+                        $html_bebes<br>
                     </div>
-                </div>
-            </body>
-            
-            </html>";
+                </center>";
             $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
             // Activo condificacción utf-8
             $mail->CharSet = 'UTF-8';
