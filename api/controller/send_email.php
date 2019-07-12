@@ -68,11 +68,11 @@ if($pasaje->tripInfoPassenger()){
                     <div style='bg-tabs margin-bottom: 1rem; padding: 1.5rem;width: 100%; border-radius: 10px;'>
                         <div style='display:flex; flex-direction:row; justify-content-between align-items: center; margin-bottom: 1rem;'>
                             <div style='flex-direction:row;'>
-                                <label for=''>NOMBRES: </label>
+                                <label style='color:#dc3545'>NOMBRES: </label>
                                 <span style='margin-left: 0.75rem;'>".$value['nombres']."</span>
-                                <label for=''>APELLIDOS: </label>
+                                <label style='color:#dc3545'>APELLIDOS: </label>
                                 <span style='margin-left: 0.75rem;'>".$value['apellidos']."</span>
-                                <label for=''>".$value['tipoDocumento']."</label>
+                                <label style='color:#dc3545'>".$value['tipoDocumento']."</label>
                                 <span style='margin-left: 0.75rem;'>".$value['numDocumento']."</span>
                             </div>
                         </div>
@@ -84,11 +84,11 @@ if($pasaje->tripInfoPassenger()){
                     <div style='bg-tabs margin-bottom: 1rem; padding: 1.5rem;width: 100%; border-radius: 10px;'>
                         <div style='display:flex; flex-direction:row; justify-content-between align-items: center; margin-bottom: 1rem;'>
                             <div style='flex-direction:row;'>
-                                <label for=''>NOMBRES: </label>
+                                <label style='color:#dc3545'>NOMBRES: </label>
                                 <span style='margin-left: 0.75rem;'>".$value['nombres']."</span>
-                                <label for=''>APELLIDOS: </label>
+                                <label style='color:#dc3545'>APELLIDOS: </label>
                                 <span style='margin-left: 0.75rem;'>".$value['apellidos']."</span>
-                                <label for=''>".$value['tipoDocumento']."</label>
+                                <label style='color:#dc3545'>".$value['tipoDocumento']."</label>
                                 <span style='margin-left: 0.75rem;'>".$value['numDocumento']."</span>
                             </div>
                         </div>
@@ -100,11 +100,11 @@ if($pasaje->tripInfoPassenger()){
                 <div style='bg-tabs margin-bottom: 1rem; padding: 1.5rem;width: 100%; border-radius: 10px;'>
                     <div style='display:flex; flex-direction:row; justify-content-between align-items: center; margin-bottom: 1rem;'>
                         <div style='flex-direction:row;'>
-                            <label for=''>NOMBRES: </label>
+                            <label style='color:#dc3545'>NOMBRES: </label>
                             <span style='margin-left: 0.75rem;'>".$value['nombres']."</span>
-                            <label for=''>APELLIDOS: </label>
+                            <label style='color:#dc3545'>APELLIDOS: </label>
                             <span style='margin-left: 0.75rem;'>".$value['apellidos']."</span>
-                            <label for=''>".$value['tipoDocumento']."</label>
+                            <label style='color:#dc3545'>".$value['tipoDocumento']."</label>
                             <span style='margin-left: 0.75rem;'>".$value['numDocumento']."</span>
                         </div>
                     </div>
