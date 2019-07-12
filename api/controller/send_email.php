@@ -43,37 +43,34 @@ if($pasaje->tripInfoPassenger()){
         <h3>Bebés</h3>";
         $contador_bebes = 0;
         $html_vuelta = "";
-        if($infopasajes[0]['vueltaOrigen'] == null){
-            $texto_ida_o_vuelta = "Solo Ida";
-        }else{
-            $texto_ida_o_vuelta = "Ida y Vuelta";
-            $html_vuelta = "
-            <div style='display:flex; flex-direction:column;width: 47%;'><span
-                    title='$infopasajes[0]['vueltaOrigen'] - $infopasajes[0]['vueltaDestino']'
-                    style='color: #dc3545; display:flex; flex-direction:row; align-items:center;width: 100%; max-height: 27px;'>
-                    Vuelta:
-                    <span style='color: black;' style='text-overflow: ellipsis; overflow: hidden;'>
-                    $infopasajes[0]['vueltaOrigen'] - $infopasajes[0]['vueltaDestino']</span></span><span
-                    style='color: #dc3545; display:flex; flex-direction:row; align-items:center'>
-                    Hora de Vuelta:
-                    <span style='color: black; padding-left: 0.75rem;'> $infopasajes[0]['vueltaHora']</span></span>
-            </div>";
-        }
+
+        $ida_origen_destino = '';
+        $ida_fecha = '';
+        $ida_hora = '';
+        $vuelta_origen_destino = '';
+        $vuelta_fecha = '';
+        $vuelta_hora ='';
+        $vuelta = false;
 
         foreach ($infopasajes as $value) {
             if($value["idTipoPasaje"] == 1){
+                $ida_origen_destino = $value['idaOrigen']." - ".$value['idaDestino']; 
+                $ida_fecha = $value['idaFecha'];
+                $ida_hora = $value['idaHora'];
+                if($value['vueltaOrigen'] != null){
+                    $vuelta = true;
+                    $vuelta_origen_destino = $value['vueltaOrigen']." - ".$value['vueltaDestino']; 
+                    $vuelta_fecha = $value['vueltaFecha'];
+                    $vuelta_hora = $value['vueltaHora'];
+                }
                 $html_adultos .= "
                     <div style='bg-tabs margin-bottom: 1rem; padding: 1.5rem;width: 100%; border-radius: 10px;'>
                         <div style='display:flex; flex-direction:row; justify-content-between align-items: center; margin-bottom: 1rem;'>
                             <div style='display:flex; flex-direction:row;width: 33%;'>
                                 <label for=''>NOMBRES: </label>
                                 <span style='margin-left: 0.75rem;'>".$value['nombres']."</span>
-                            </div>
-                            <div style='display:flex; flex-direction:row;width: 33%;'>
                                 <label for=''>APELLIDOS: </label>
                                 <span style='margin-left: 0.75rem;'>".$value['apellidos']."</span>
-                            </div>
-                            <div style='display:flex; flex-direction:row;width: 33%;'>
                                 <label for=''>".$value['tipoDocumento']."</label>
                                 <span style='margin-left: 0.75rem;'>".$value['numDocumento']."</span>
                             </div>
@@ -87,12 +84,8 @@ if($pasaje->tripInfoPassenger()){
                             <div style='display:flex; flex-direction:row;width: 33%;'>
                                 <label for=''>NOMBRES: </label>
                                 <span style='margin-left: 0.75rem;'>".$value['nombres']."</span>
-                            </div>
-                            <div style='display:flex; flex-direction:row;width: 33%;'>
                                 <label for=''>APELLIDOS: </label>
                                 <span style='margin-left: 0.75rem;'>".$value['apellidos']."</span>
-                            </div>
-                            <div style='display:flex; flex-direction:row;width: 33%;'>
                                 <label for=''>".$value['tipoDocumento']."</label>
                                 <span style='margin-left: 0.75rem;'>".$value['numDocumento']."</span>
                             </div>
@@ -101,24 +94,37 @@ if($pasaje->tripInfoPassenger()){
                 </div>";
             }else{
                 $html_bebes .= "
-                    <div style='bg-tabs margin-bottom: 1rem; padding: 1.5rem;width: 100%; border-radius: 10px;'>
-                        <div style='display:flex; flex-direction:row; justify-content-between align-items: center; margin-bottom: 1rem;'>
-                            <div style='display:flex; flex-direction:row;width: 33%;'>
-                                <label for=''>NOMBRES: </label>
-                                <span style='margin-left: 0.75rem;'>".$value['nombres']."</span>
-                            </div>
-                            <div style='display:flex; flex-direction:row;width: 33%;'>
-                                <label for=''>APELLIDOS: </label>
-                                <span style='margin-left: 0.75rem;'>".$value['apellidos']."</span>
-                            </div>
-                            <div style='display:flex; flex-direction:row;width: 33%;'>
-                                <label for=''>".$value['tipoDocumento']."</label>
-                                <span style='margin-left: 0.75rem;'>".$value['numDocumento']."</span>
-                            </div>
+                <div style='bg-tabs margin-bottom: 1rem; padding: 1.5rem;width: 100%; border-radius: 10px;'>
+                    <div style='display:flex; flex-direction:row; justify-content-between align-items: center; margin-bottom: 1rem;'>
+                        <div style='display:flex; flex-direction:row;width: 33%;'>
+                            <label for=''>NOMBRES: </label>
+                            <span style='margin-left: 0.75rem;'>".$value['nombres']."</span>
+                            <label for=''>APELLIDOS: </label>
+                            <span style='margin-left: 0.75rem;'>".$value['apellidos']."</span>
+                            <label for=''>".$value['tipoDocumento']."</label>
+                            <span style='margin-left: 0.75rem;'>".$value['numDocumento']."</span>
                         </div>
                     </div>
-                </div>";
+                </div>
+            </div>";
             }
+        }
+        
+        if($vuelta == true){
+            $texto_ida_o_vuelta = "Solo Ida";
+        }else{
+            $texto_ida_o_vuelta = "Ida y Vuelta";
+            $html_vuelta = "
+            <div style='display:flex; flex-direction:column;width: 47%;'><span
+                    title='$vuelta_origen_destino'
+                    style='color: #dc3545; display:flex; flex-direction:row; align-items:center;width: 100%; max-height: 27px;'>
+                    Vuelta:
+                    <span style='color: black;' style='text-overflow: ellipsis; overflow: hidden;'>
+                    $vuelta_origen_destino</span></span><span
+                    style='color: #dc3545; display:flex; flex-direction:row; align-items:center'>
+                    Hora de Vuelta:
+                    <span style='color: black; padding-left: 0.75rem;'> $vuelta_hora</span></span>
+            </div>";
         }
         
         // Instantiation and passing `true` enables exceptions
@@ -151,25 +157,25 @@ if($pasaje->tripInfoPassenger()){
             $mail->isHTML(true);                                  // Set email format to HTML
             $mail->Subject = 'Ha realizado una reserva con Movil Perú';
             $mail->Body    = "
-            <center style='display:flex; flex-direction:column; padding: 1.5rem; border-radius: 10px;'>
+            <center style='flex-direction:column; padding: 1.5rem; border-radius: 10px;'>
                     <h1 style='color:black;'> RESERVA N° $ticket</h1><br>
                     <h3 style='color:#dc3545'>$texto_ida_o_vuelta</h3>
-                    <h3 style='color:#dc3545'>Fecha de Salida: $infopasajes[0]['idaFecha']</h3><br>
+                    <h3 style='color:#dc3545'>Fecha de Ida: $ida_fecha</h3><br>
                     <div style='display:flex; flex-direction:row; justify-content:space-between; margin-top: 1rem; margin-bottom: 1rem;'>
                         <div style='display:flex; flex-direction:column;width: 47%;'>
-                            <span title='$infopasajes[0]['idaOrigen'] - $infopasajes[0]['idaDestino']'
+                            <span title='$ida_origen_destino'
                                 style='display:flex; flex-direction:row; align-items:center; color: #dc3545;width: 100%; max-height: 27px;'>
                                 Ida:
                                 <span style='color: black;text-overflow: ellipsis; overflow: hidden;'>
-                                $infopasajes[0]['idaOrigen'] - $infopasajes[0]['idaDestino']</span>
+                                $ida_origen_destino</span>
                             </span>
                             <span style='color: #dc3545; display:flex; flex-direction:row; align-items:center;'>
                                 Hora de Ida:
-                                <span style='color: black; padding-left: 0.75rem;'>$infopasajes[0]['idaHora']</span></span>
+                                <span style='color: black; padding-left: 0.75rem;'>$ida_hora</span></span>
                         </div>
                         $html_vuelta
                     </div><br>
-                    <div style='display:flex; flex-direction:column; align-items: flex-start;'>
+                    <div style='flex-direction:column; align-items: flex-start;'>
                         <h2>Información de Pasajeros</h2>
                         $html_adultos<br>
                         $html_ninos<br>
