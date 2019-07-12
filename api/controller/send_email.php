@@ -67,7 +67,7 @@ if($pasaje->tripInfoPassenger()){
                 $html_adultos .= "
                     <div style='bg-tabs margin-bottom: 1rem; padding: 1.5rem;width: 100%; border-radius: 10px;'>
                         <div style='display:flex; flex-direction:row; justify-content-between align-items: center; margin-bottom: 1rem;'>
-                            <div style='display:flex; flex-direction:row;'>
+                            <div style='flex-direction:row;'>
                                 <label for=''>NOMBRES: </label>
                                 <span style='margin-left: 0.75rem;'>".$value['nombres']."</span>
                                 <label for=''>APELLIDOS: </label>
@@ -83,7 +83,7 @@ if($pasaje->tripInfoPassenger()){
                 $html_ninos .= "
                     <div style='bg-tabs margin-bottom: 1rem; padding: 1.5rem;width: 100%; border-radius: 10px;'>
                         <div style='display:flex; flex-direction:row; justify-content-between align-items: center; margin-bottom: 1rem;'>
-                            <div style='display:flex; flex-direction:row;'>
+                            <div style='flex-direction:row;'>
                                 <label for=''>NOMBRES: </label>
                                 <span style='margin-left: 0.75rem;'>".$value['nombres']."</span>
                                 <label for=''>APELLIDOS: </label>
@@ -99,7 +99,7 @@ if($pasaje->tripInfoPassenger()){
                 $html_bebes .= "
                 <div style='bg-tabs margin-bottom: 1rem; padding: 1.5rem;width: 100%; border-radius: 10px;'>
                     <div style='display:flex; flex-direction:row; justify-content-between align-items: center; margin-bottom: 1rem;'>
-                        <div style='display:flex; flex-direction:row;'>
+                        <div style='flex-direction:row;'>
                             <label for=''>NOMBRES: </label>
                             <span style='margin-left: 0.75rem;'>".$value['nombres']."</span>
                             <label for=''>APELLIDOS: </label>
