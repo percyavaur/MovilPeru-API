@@ -110,7 +110,7 @@ if($pasaje->tripInfoPassenger()){
             }
         }
         
-        if($vuelta == true){
+        if($vuelta == false){
             $texto_ida_o_vuelta = "Solo Ida";
         }else{
             $texto_ida_o_vuelta = "Ida y Vuelta";
