@@ -57,7 +57,7 @@ if($pasaje->tripInfoPassenger()){
                 $ida_origen_destino = $value['idaOrigen']." - ".$value['idaDestino']; 
                 $ida_fecha = $value['idaFecha'];
                 $ida_hora = $value['idaHora'];
-                if($value['vueltaOrigen'] != null){
+                if($value['vueltaOrigen'] != ""){
                     $vuelta = true;
                     $vuelta_origen_destino = $value['vueltaOrigen']." - ".$value['vueltaDestino']; 
                     $vuelta_fecha = $value['vueltaFecha'];
