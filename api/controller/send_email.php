@@ -166,8 +166,7 @@ if($pasaje->tripInfoPassenger()){
             $mail->Subject = 'Ha realizado una reserva con Movil Perú';
             $mail->Body    = "
             <center style='flex-direction:column; padding: 1.5rem; border-radius: 10px;'>
-                    <h1 style='color:black;'> RESERVA N° $ticket</h1><br>
-                    <h3>Comprador: $comprador</h3>
+                    <h1 style='color:black;'> RESERVA N° $ticket</h1>
                     <h3 style='color:#dc3545'>$texto_ida_o_vuelta</h3>
                     <h3 style='color:#dc3545'>Fecha de Ida: $ida_fecha</h3><br>
                     <div style='flex-direction:row; justify-content:space-between; margin-top: 1rem; margin-bottom: 1rem;'>
