@@ -36,8 +36,6 @@ if ($getExpoTokens) {
     try {
         $notification = ['title' => "hola", 'body' => "adios"];
         $interestDetails = [uuid(), $expoToken["expoToken"]];
-        echo(uuid());
-        echo($expoToken["expoToken"]);
         // You can quickly bootup an expo instance
         $expo = \ExponentPhpSDK\Expo::normalSetup();
         
@@ -49,8 +47,10 @@ if ($getExpoTokens) {
         
         // Notify an interest with a notification
         $expo->notify($interestDetails[0], $notification);
+        echo ("success");
     } catch (\Throwable $th) {
-        //throw $th;
+        echo ("error");
+        echo ($th);
     }
     }
 }
