@@ -30,6 +30,9 @@ function uuid(){
 }
 
 if ($getExpoTokens) {
+    
+    echo ("success");
+    http_response_code(200);
     foreach ($expoTokens as $key => $expoToken) {
         
     try {
@@ -46,10 +49,7 @@ if ($getExpoTokens) {
         
         // Notify an interest with a notification
         $expo->notify($interestDetails[0], $notification);
-        echo ("success");
     } catch (\Throwable $th) {
-        echo ("error");
-        echo ($th);
     }
     }
 }
