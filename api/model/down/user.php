@@ -256,7 +256,8 @@ class user
 
     function updateToken()
     {
-        $query = "UPDATE usuarios SET expoToken = ? WHERE idUsuario = ?";
+        //$query = "UPDATE usuarios SET expoToken = ? WHERE idUsuario = ?";
+        $query = "INSERT INTO  expoTokens ('idUsuario','expoToken') VALUES(?,?)";
 
         $stmt = $this->conn->prepare($query);
 
