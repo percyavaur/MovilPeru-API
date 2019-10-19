@@ -27,6 +27,7 @@ if ($getExpoTokens) {
     $notification = ['title' => "hola", 'body' => "adios"];
 
     foreach ($expoTokens as $key => $expoToken); {
+        echo($expoToken["expoToken"]);
         $key = $expoToken["expoToken"];
         $userId = $expoToken["idUsuario"];
         try {
