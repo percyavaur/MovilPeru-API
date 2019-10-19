@@ -256,13 +256,12 @@ class user
 
     function updateToken()
     {
-        /* $query = "UPDATE usuarios SET expoToken = ? WHERE idUsuario = ?"; */
-        $query = "INSERT INTO  expoTokens ('idUsuario','expoToken') VALUES(?,?)";
+        $query = "UPDATE usuarios SET expoToken = ? WHERE idUsuario = ?";
 
         $stmt = $this->conn->prepare($query);
 
-        $stmt->bindParam(1, $this->idUsuario);
-        $stmt->bindParam(2, $this->expoToken);
+        $stmt->bindParam(1, $this->expoToken);
+        $stmt->bindParam(2, $this->idUsuario);
 
         if ($stmt->execute()) {
             return true;
