@@ -25,6 +25,7 @@ class user
     public $estadoCivil;
     public $direccion;
     public $expoToken;
+    public $action;
     public $users = array();
 
 
@@ -257,7 +258,11 @@ class user
     function updateToken()
     {
         //$query = "UPDATE usuarios SET expoToken = ? WHERE idUsuario = ?";
-        $query = "INSERT INTO `expotokens`(`idUsuario`, `expoToken`) VALUES (?, ?)";
+        if ($action="login") {
+            $query = "INSERT INTO `expotokens`(`idUsuario`, `expoToken`) VALUES (?, ?)";
+        }else{
+            $query="DELETE FROM `expotokens` WHERE `idUsuario` = ? && `expoToken` = ?";
+        }
 
         $stmt = $this->conn->prepare($query);
 

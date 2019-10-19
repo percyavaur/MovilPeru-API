@@ -22,6 +22,7 @@ $user = new User($db);
 $data = json_decode(file_get_contents("php://input"));
 $jwt = isset($data->jwt) ? $data->jwt : "";
 $user->expoToken = $data->expoToken;
+$user->action = $data->action;
 
 $array = [];
 if ($jwt) {
