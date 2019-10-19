@@ -22,20 +22,35 @@ $expoToken->expoToken;
 
 $getExpoTokens = $expoToken->getExpoTokens();
 
+function uuid(){
+    $data = random_bytes(16);
+    $data[6] = chr(ord($data[6]) & 0x0f | 0x40); 
+    $data[8] = chr(ord($data[8]) & 0x3f | 0x80); 
+    return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
+}
+
 if ($getExpoTokens) {
     $expoTokens = $expoToken->expoTokens;
-    $notification = ['title' => "hola", 'body' => "adios"];
-
-    foreach ($expoTokens as $key => $expoToken); {
+    foreach ($expoTokens as $key => $expoToken) {
+        
+    try {
+        $notification = ['title' => "hola", 'body' => "adios"];
+        $interestDetails = [uuid(), $expoToken["expoToken"]];
+        echo(uuid());
         echo($expoToken["expoToken"]);
-        $key = $expoToken["expoToken"];
-        $userId = $expoToken["idUsuario"];
-        try {
-            $expo = \ExponentPhpSDK\Expo::normalSetup();
-            $expo->notify($userId, $notification); //$userId from database
-        } catch (Exception $e) {
-            $expo->subscribe($userId, $key); //$userId from database
-            $expo->notify($userId, $notification);
-        }
+        // You can quickly bootup an expo instance
+        $expo = \ExponentPhpSDK\Expo::normalSetup();
+        
+        // Subscribe the recipient to the server
+        $expo->subscribe($interestDetails[0], $interestDetails[1]);
+        
+        // Build the notification data
+        $notification = ['body' => 'Hello World!'];
+        
+        // Notify an interest with a notification
+        $expo->notify($interestDetails[0], $notification);
+    } catch (\Throwable $th) {
+        //throw $th;
+    }
     }
 }
