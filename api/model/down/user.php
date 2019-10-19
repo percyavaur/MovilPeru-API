@@ -261,8 +261,8 @@ class user
 
         $stmt = $this->conn->prepare($query);
 
-        $stmt->bindParam(1, $this->expoToken);
-        $stmt->bindParam(2, $this->idUsuario);
+        $stmt->bindParam(1, $this->idUsuario);
+        $stmt->bindParam(2, $this->expoToken);
 
         if ($stmt->execute()) {
             return true;
