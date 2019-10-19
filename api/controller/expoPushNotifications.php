@@ -19,8 +19,8 @@ $expoTokens = array();
 $expoToken->idExpoToken;
 $expoToken->idUsuario;
 $expoToken->expoToken;
-
 $getExpoTokens = $expoToken->getExpoTokens();
+$expoTokens = $expoToken->expoTokens;
 
 function uuid(){
     $data = random_bytes(16);
@@ -30,7 +30,6 @@ function uuid(){
 }
 
 if ($getExpoTokens) {
-    $expoTokens = $expoToken->expoTokens;
     foreach ($expoTokens as $key => $expoToken) {
         
     try {
