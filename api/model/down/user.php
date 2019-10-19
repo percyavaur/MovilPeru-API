@@ -260,7 +260,7 @@ class user
         //$query = "UPDATE usuarios SET expoToken = ? WHERE idUsuario = ?";
         if ($action="login") {
             $query = "INSERT INTO `expotokens`(`idUsuario`, `expoToken`) VALUES (?, ?)";
-        }else{
+        }else if($action="logut"){
             $query="DELETE FROM `expotokens` WHERE `idUsuario` = ? && `expoToken` = ?";
         }
 
