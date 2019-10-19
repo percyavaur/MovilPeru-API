@@ -31,7 +31,7 @@ function uuid(){
 
 if ($getExpoTokens) {
 
-    $notification = ['title' => "hola", 'body' => "adios"];
+    $notification = ['title' => "holas", 'body' => "adios"];
     
     foreach ($expoTokens as $key => $expoToken) {
         
