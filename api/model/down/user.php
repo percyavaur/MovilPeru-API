@@ -254,15 +254,11 @@ class user
         }
         return false;
     }
-
-    function updateToken()
+    
+    function createToken()
     {
         //$query = "UPDATE usuarios SET expoToken = ? WHERE idUsuario = ?";
-        if ($action="login") {
-            $query = "INSERT INTO `expotokens`(`idUsuario`, `expoToken`) VALUES (?, ?)";
-        }else if($action="logut"){
-            $query="DELETE FROM `expotokens` WHERE `idUsuario` = ? && `expoToken` = ?";
-        }
+        $query = "INSERT INTO `expotokens`(`idUsuario`, `expoToken`) VALUES (?, ?)";
 
         $stmt = $this->conn->prepare($query);
 
@@ -275,4 +271,23 @@ class user
 
         return false;
     }
+
+    function deleteToken()
+    {
+        //$query = "UPDATE usuarios SET expoToken = ? WHERE idUsuario = ?";
+        $query="DELETE FROM `expotokens` WHERE `idUsuario` = ? && `expoToken` = ?";
+
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->bindParam(1, $this->idUsuario);
+        $stmt->bindParam(2, $this->expoToken);
+
+        if ($stmt->execute()) {
+            return true;
+        }
+
+        return false;
+    }
+
 }
+

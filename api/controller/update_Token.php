@@ -22,26 +22,45 @@ $user = new User($db);
 $data = json_decode(file_get_contents("php://input"));
 $jwt = isset($data->jwt) ? $data->jwt : "";
 $user->expoToken = $data->expoToken;
-$user->action = $data->action;
 
 $array = [];
 if ($jwt) {
 
     $decoded = JWT::decode($jwt, $key, array('HS256'));
-
+    $user->action = $data->action;
     $user->idUsuario = $decoded->data->idUsuario;;
 
-    if ($user->updateToken()) {
+    if($user->action=='login'){
+        if ($user->createToken()) {
 
-        $array["message"] = "Token Update";
-        $array["success"] = true;
+            $array["message"] = "Token Update";
+            $array["a"] = $user->action;
+            $array["success"] = true;
+    
+            echo json_encode($array);
+        }else{
+            $array["message"] = "ET : Acceso Denegado";
+            $array["a"] = $user->action;
+            $array["success"] = false;
+    
+            echo json_encode($array);
+        }
+    }
+    else{
+        if ($user->deleteToken()) {
 
-        echo json_encode($array);
-    }else{
-        $array["message"] = "ET : Acceso Denegado";
-        $array["success"] = false;
-
-        echo json_encode($array);
+            $array["message"] = "Token Update";
+            $array["a"] = $user->action;
+            $array["success"] = true;
+    
+            echo json_encode($array);
+        }else{
+            $array["message"] = "ET : Acceso Denegado";
+            $array["a"] = $user->action;
+            $array["success"] = false;
+    
+            echo json_encode($array);
+        }
     }
 } else {
     // http_response_code(401);
