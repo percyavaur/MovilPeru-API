@@ -30,21 +30,15 @@ function uuid(){
 }
 
 if ($getExpoTokens) {
+
+    $notification = ['title' => "hola", 'body' => "adios"];
+    
     foreach ($expoTokens as $key => $expoToken) {
         
     try {
-        $notification = ['title' => "hola", 'body' => "adios"];
         $interestDetails = [uuid(), $expoToken["expoToken"]];
-        // You can quickly bootup an expo instance
         $expo = \ExponentPhpSDK\Expo::normalSetup();
-        
-        // Subscribe the recipient to the server
         $expo->subscribe($interestDetails[0], $interestDetails[1]);
-        
-        // Build the notification data
-        $notification = ['body' => 'Hello World!'];
-        
-        // Notify an interest with a notification
         $expo->notify($interestDetails[0], $notification);
         echo ("success");
     } catch (\Throwable $th) {
