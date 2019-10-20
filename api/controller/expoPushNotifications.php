@@ -35,7 +35,7 @@ function uuid()
 
 if ($getExpoTokens) {
     http_response_code(200);
-    $notification = ['title' => $titulo, 'body' => $subtitulo];
+    $notification = ['title' => $titulo, 'body' => $subtitulo, 'channelId' => 'chat-messages'];
 
     foreach ($expoTokens as $key => $expoToken) {
 
