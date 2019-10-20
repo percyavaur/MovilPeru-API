@@ -12,6 +12,7 @@ require_once '../vendor/autoload.php';
 $database = new Database();
 $db = $database->getConnection();
 $expoToken = new expoToken($db);
+$data = json_decode(file_get_contents("php://input"));
 
 $array = [];
 $expoTokens = array();
@@ -21,29 +22,34 @@ $expoToken->idUsuario;
 $expoToken->expoToken;
 $getExpoTokens = $expoToken->getExpoTokens();
 $expoTokens = $expoToken->expoTokens;
+$titulo = "titulo";
+$subtitulo = "subtitulo";
 
-function uuid(){
+function uuid()
+{
     $data = random_bytes(16);
-    $data[6] = chr(ord($data[6]) & 0x0f | 0x40); 
-    $data[8] = chr(ord($data[8]) & 0x3f | 0x80); 
+    $data[6] = chr(ord($data[6]) & 0x0f | 0x40);
+    $data[8] = chr(ord($data[8]) & 0x3f | 0x80);
     return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
 }
 
 if ($getExpoTokens) {
 
-    $notification = ['title' => "holas", 'body' => "adios"];
-    
+    $notification = ['title' => $titulo, 'body' => $subtitulo];
+
     foreach ($expoTokens as $key => $expoToken) {
-        
-    try {
-        $interestDetails = [uuid(), $expoToken["expoToken"]];
-        $expo = \ExponentPhpSDK\Expo::normalSetup();
-        $expo->subscribe($interestDetails[0], $interestDetails[1]);
-        $expo->notify($interestDetails[0], $notification);
-        echo ("success");
-    } catch (\Throwable $th) {
-        echo ("error");
-        echo ($th);
-    }
+
+        try {
+
+            $interestDetails = [uuid(), $expoToken["expoToken"]];
+            $expo = \ExponentPhpSDK\Expo::normalSetup();
+            $expo->subscribe($interestDetails[0], $interestDetails[1]);
+            $expo->notify($interestDetails[0], $notification);
+            echo ("success");
+        } catch (\Throwable $th) {
+
+            echo ("error");
+            echo ($th);
+        }
     }
 }
