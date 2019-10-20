@@ -34,7 +34,7 @@ function uuid()
 }
 
 if ($getExpoTokens) {
-
+    http_response_code(200);
     $notification = ['title' => $titulo, 'body' => $subtitulo];
 
     foreach ($expoTokens as $key => $expoToken) {
