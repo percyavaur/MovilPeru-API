@@ -22,8 +22,8 @@ $expoToken->idUsuario;
 $expoToken->expoToken;
 $getExpoTokens = $expoToken->getExpoTokens();
 $expoTokens = $expoToken->expoTokens;
-$titulo = "titulo";
-$subtitulo = "subtitulo";
+$titulo = $data->titulo;
+$subtitulo = $data->subtitulo;
 
 function uuid()
 {
