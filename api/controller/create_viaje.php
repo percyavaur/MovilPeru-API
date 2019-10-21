@@ -19,6 +19,7 @@ $viaje->horaSalida = $data->horaSalida;
 $viaje->precio = 25;
 
 $viaje->fechaSalida = $data->fechaSalida;
+$viaje->departureDate=$data->fechaSalida." ".$data->horaSalida;
 
 for ($i = 1; $i < 10; $i++) {
     $viaje->idOrigen = $i;

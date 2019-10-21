@@ -34,6 +34,7 @@ class viaje
     public $dirOrigen;
     public $created;
     public $updated;
+    public $departureDate;
     public $destinos = array();
     public $origenes = array();
     public $viajes = array();
@@ -258,7 +259,7 @@ class viaje
 
     function createViaje()
     {
-        $query = "call registrarViaje(:idConductor, :idVehiculo, :idOrigen, :idDestino, :precio, :fechaSalida, :horaSalida)";
+        $query = "call registrarViaje(:idConductor, :idVehiculo, :idOrigen, :idDestino, :precio, :fechaSalida, :horaSalida, :departureDate)";
         $stmt = $this->conn->prepare($query);
 
         $this->idConductor = htmlspecialchars(strip_tags($this->idConductor));
@@ -268,6 +269,7 @@ class viaje
         $this->precio = htmlspecialchars(strip_tags($this->precio));
         $this->fechaSalida = htmlspecialchars(strip_tags($this->fechaSalida));
         $this->horaSalida = htmlspecialchars(strip_tags($this->horaSalida));
+        $this->departureDate = htmlspecialchars(strip_tags($this->departureDate));
 
         $stmt->bindParam(':idConductor', $this->idConductor);
         $stmt->bindParam(':idVehiculo', $this->idVehiculo);
@@ -276,6 +278,7 @@ class viaje
         $stmt->bindParam(':precio', $this->precio);
         $stmt->bindParam(':fechaSalida', $this->fechaSalida);
         $stmt->bindParam(':horaSalida', $this->horaSalida);
+        $stmt->bindParam(':departureDate', $this->departureDate);
 
         if ($stmt->execute()) {
             return true;
