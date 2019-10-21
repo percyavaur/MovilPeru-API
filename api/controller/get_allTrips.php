@@ -8,6 +8,12 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 include_once '../config/database.php';
 include_once '../model/down/viaje.php';
+include_once '../config/core.php';
+include_once '../libs/php-jwt-master/src/BeforeValidException.php';
+include_once '../libs/php-jwt-master/src/ExpiredException.php';
+include_once '../libs/php-jwt-master/src/SignatureInvalidException.php';
+include_once '../libs/php-jwt-master/src/JWT.php';
+use \Firebase\JWT\JWT;
 
 $database = new Database();
 $db = $database->getConnection();
@@ -19,11 +25,6 @@ $data = json_decode(file_get_contents("php://input"));
 $jwt = isset($data->jwt) ? $data->jwt : "";
 
 $array = [];
-
-$viaje->idOrigen = $data->idOrigen;
-$viaje->idDestino = $data->idDestino;
-$viaje->cantPasajeros = $data->cantPasajeros;
-$viaje->fechaSalida = $data->fechaSalida;
 $get_viaje = $viaje->getAllTrips();
 
 
@@ -49,8 +50,7 @@ if ($jwt && $get_viaje) {
             echo json_encode($array);
         }
     } catch (\Throwable $th) {
-
-
+        $array["ERROR"]=$th;
         $array["success"] = false;
         $array["message"] = "C: Acceso Denegado";
 
