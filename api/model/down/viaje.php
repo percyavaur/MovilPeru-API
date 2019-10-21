@@ -103,7 +103,7 @@ class viaje
     function getViajes()
     {
         $query = "SELECT * FROM viajesInfo
-        WHERE idOrigen = ? && idDestino = ? && capacidad >= ? && departureDate = ? ";
+        WHERE idOrigen = ? && idDestino = ? && capacidad >= ? && DATE(departureDate) = ? ";
         $stmt = $this->conn->prepare($query);
 
         $this->idOrigen = htmlspecialchars(strip_tags($this->idOrigen));
