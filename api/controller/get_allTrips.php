@@ -44,7 +44,7 @@ if ($jwt && $get_viaje) {
             echo json_encode($array);
         } else {
             $array["success"] = false;
-            $array["message"] = "Acceso Denegado";
+            $array["message"] = "E1: Acceso Denegado";
 
             echo json_encode($array);
         }
@@ -52,14 +52,14 @@ if ($jwt && $get_viaje) {
 
 
         $array["success"] = false;
-        $array["message"] = "Acceso Denegado";
+        $array["message"] = "C: Acceso Denegado";
 
         echo json_encode($array);
     }
 } else {
 
     $array["success"] = false;
-    $array["message"] = "Acceso Denegado";
+    $array["message"] = "E2: Acceso Denegado";
 
     echo json_encode($array);
 }
