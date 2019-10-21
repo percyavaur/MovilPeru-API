@@ -103,13 +103,13 @@ class viaje
     function getViajes()
     {
         $query = "SELECT * FROM viajesInfo
-        WHERE idOrigen = ? && idDestino = ? && capacidad >= ? && fechaSalida = ? ";
+        WHERE idOrigen = ? && idDestino = ? && capacidad >= ? && departureDate = ? ";
         $stmt = $this->conn->prepare($query);
 
         $this->idOrigen = htmlspecialchars(strip_tags($this->idOrigen));
         $this->idDestino = htmlspecialchars(strip_tags($this->idDestino));
         $this->cantPasajeros = htmlspecialchars(strip_tags($this->cantPasajeros));
-        $this->fechaSalida = htmlspecialchars(strip_tags($this->fechaSalida));
+        $this->departureDate = htmlspecialchars(strip_tags($this->departureDate));
 
         $stmt->bindParam(1, $this->idOrigen);
         $stmt->bindParam(2, $this->idDestino);
@@ -133,8 +133,6 @@ class viaje
                 $this->depDestino = $row['depDestino'];
                 $this->disDestino = $row['disDestino'];
                 $this->dirDestino = $row['dirDestino'];
-                $this->fechaSalida = $row['fechaSalida'];
-                $this->horaSalida = $row['horaSalida'];
                 $this->precio = $row['precio'];
                 $this->capacidad = $row['capacidad'];
                 $this->idConductor = $row['idConductor'];
@@ -158,8 +156,6 @@ class viaje
                     'depDestino' => $this->depDestino,
                     'disDestino' => $this->disDestino,
                     'dirDestino' => $this->dirDestino,
-                    'fechaSalida' => $this->fechaSalida,
-                    'horaSalida' => $this->horaSalida,
                     'precio' => $this->precio,
                     'capacidad' => $this->capacidad,
                     'idConductor' => $this->idConductor,
@@ -209,8 +205,6 @@ class viaje
                 $this->depDestino = $row['depDestino'];
                 $this->disDestino = $row['disDestino'];
                 $this->dirDestino = $row['dirDestino'];
-                $this->fechaSalida = $row['fechaSalida'];
-                $this->horaSalida = $row['horaSalida'];
                 $this->precio = $row['precio'];
                 $this->capacidad = $row['capacidad'];
                 $this->idConductor = $row['idConductor'];
@@ -236,8 +230,6 @@ class viaje
                     'depDestino' => $this->depDestino,
                     'disDestino' => $this->disDestino,
                     'dirDestino' => $this->dirDestino,
-                    'fechaSalida' => $this->fechaSalida,
-                    'horaSalida' => $this->horaSalida,
                     'precio' => $this->precio,
                     'capacidad' => $this->capacidad,
                     'idConductor' => $this->idConductor,
@@ -259,7 +251,7 @@ class viaje
 
     function createViaje()
     {
-        $query = "call registrarViaje(:idConductor, :idVehiculo, :idOrigen, :idDestino, :precio, :fechaSalida, :horaSalida, :departureDate)";
+        $query = "call registrarViaje(:idConductor, :idVehiculo, :idOrigen, :idDestino, :precio, :departureDate)";
         $stmt = $this->conn->prepare($query);
 
         $this->idConductor = htmlspecialchars(strip_tags($this->idConductor));
@@ -276,8 +268,6 @@ class viaje
         $stmt->bindParam(':idOrigen', $this->idOrigen);
         $stmt->bindParam(':idDestino', $this->idDestino);
         $stmt->bindParam(':precio', $this->precio);
-        $stmt->bindParam(':fechaSalida', $this->fechaSalida);
-        $stmt->bindParam(':horaSalida', $this->horaSalida);
         $stmt->bindParam(':departureDate', $this->departureDate);
 
         if ($stmt->execute()) {
