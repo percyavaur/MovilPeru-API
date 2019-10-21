@@ -32,6 +32,8 @@ class viaje
     public $depOrigen;
     public $disOrigen;
     public $dirOrigen;
+    public $created;
+    public $updated;
     public $destinos = array();
     public $origenes = array();
     public $viajes = array();
@@ -218,6 +220,8 @@ class viaje
                 $this->seguro = $row['seguro'];
                 $this->numSeguro = $row['numSeguro'];
                 $this->SOAT = $row['SOAT'];
+                $this->created = $row['created'];
+                $this->updated = $row['updated'];
 
                 $this->viajes[$i] = array(
                     'idViaje' => $this->idViaje,
@@ -242,7 +246,9 @@ class viaje
                     'modelo' => $this->modelo,
                     'seguro' => $this->seguro,
                     'numSeguro' => $this->numSeguro,
-                    'SOAT' => $this->SOAT
+                    'SOAT' => $this->SOAT,
+                    'created' => $this->created,
+                    'updated' => $this->updated
                 );
             }
             return true;
