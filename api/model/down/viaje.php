@@ -103,13 +103,12 @@ class viaje
     function getViajes()
     {
         $query = "SELECT * FROM viajesInfo
-        WHERE idOrigen = ? && idDestino = ? && capacidad >= ? && DATE(departureDate) = ? ";
+        WHERE idOrigen = ? && idDestino = ? && capacidad >= ? && DATE(departureDate)= ? ";
         $stmt = $this->conn->prepare($query);
-
         $this->idOrigen = htmlspecialchars(strip_tags($this->idOrigen));
         $this->idDestino = htmlspecialchars(strip_tags($this->idDestino));
         $this->cantPasajeros = htmlspecialchars(strip_tags($this->cantPasajeros));
-        $this->departureDate = htmlspecialchars(strip_tags($this->departureDate));
+        $this->fechaSalida = htmlspecialchars(strip_tags($this->fechaSalida));
 
         $stmt->bindParam(1, $this->idOrigen);
         $stmt->bindParam(2, $this->idDestino);
@@ -143,6 +142,7 @@ class viaje
                 $this->seguro = $row['seguro'];
                 $this->numSeguro = $row['numSeguro'];
                 $this->SOAT = $row['SOAT'];
+                $this->departureDate = $row['departureDate'];
 
                 $this->viajes[$i] = array(
                     'idViaje' => $this->idViaje,
@@ -165,7 +165,8 @@ class viaje
                     'modelo' => $this->modelo,
                     'seguro' => $this->seguro,
                     'numSeguro' => $this->numSeguro,
-                    'SOAT' => $this->SOAT
+                    'SOAT' => $this->SOAT,
+                    'departureDate' => $this->departureDate
                 );
             }
             return true;
@@ -178,15 +179,6 @@ class viaje
         $query = "SELECT * FROM viajesInfo";
         $stmt = $this->conn->prepare($query);
 
-        $this->idOrigen = htmlspecialchars(strip_tags($this->idOrigen));
-        $this->idDestino = htmlspecialchars(strip_tags($this->idDestino));
-        $this->cantPasajeros = htmlspecialchars(strip_tags($this->cantPasajeros));
-        $this->fechaSalida = htmlspecialchars(strip_tags($this->fechaSalida));
-
-        $stmt->bindParam(1, $this->idOrigen);
-        $stmt->bindParam(2, $this->idDestino);
-        $stmt->bindParam(3, $this->cantPasajeros);
-        $stmt->bindParam(4, $this->fechaSalida);
 
         if ($stmt->execute()) {
             $num = $stmt->rowCount();
@@ -217,6 +209,7 @@ class viaje
                 $this->SOAT = $row['SOAT'];
                 $this->created = $row['created'];
                 $this->updated = $row['updated'];
+                $this->departureDate = $row['departureDate'];
 
                 $this->viajes[$i] = array(
                     'idViaje' => $this->idViaje,
@@ -241,7 +234,8 @@ class viaje
                     'numSeguro' => $this->numSeguro,
                     'SOAT' => $this->SOAT,
                     'created' => $this->created,
-                    'updated' => $this->updated
+                    'updated' => $this->updated,
+                    'departureDate' => $this->departureDate
                 );
             }
             return true;
@@ -259,8 +253,6 @@ class viaje
         $this->idOrigen = htmlspecialchars(strip_tags($this->idOrigen));
         $this->idDestino = htmlspecialchars(strip_tags($this->idDestino));
         $this->precio = htmlspecialchars(strip_tags($this->precio));
-        $this->fechaSalida = htmlspecialchars(strip_tags($this->fechaSalida));
-        $this->horaSalida = htmlspecialchars(strip_tags($this->horaSalida));
         $this->departureDate = htmlspecialchars(strip_tags($this->departureDate));
 
         $stmt->bindParam(':idConductor', $this->idConductor);
