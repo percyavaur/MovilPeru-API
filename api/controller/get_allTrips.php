@@ -7,17 +7,11 @@ header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
 include_once '../config/database.php';
-include_once '../model/down/user.php';
-include_once '../config/core.php';
-include_once '../libs/php-jwt-master/src/BeforeValidException.php';
-include_once '../libs/php-jwt-master/src/ExpiredException.php';
-include_once '../libs/php-jwt-master/src/SignatureInvalidException.php';
-include_once '../libs/php-jwt-master/src/JWT.php';
-use \Firebase\JWT\JWT;
+include_once '../model/down/viaje.php';
 
 $database = new Database();
 $db = $database->getConnection();
-$user = new User($db);
+$viaje = new Viaje($db);
 
 // get posted data
 $data = json_decode(file_get_contents("php://input"));
@@ -25,9 +19,15 @@ $data = json_decode(file_get_contents("php://input"));
 $jwt = isset($data->jwt) ? $data->jwt : "";
 
 $array = [];
-$get_users = $user->getUsers();
 
-if ($jwt && $get_users) {
+$viaje->idOrigen = $data->idOrigen;
+$viaje->idDestino = $data->idDestino;
+$viaje->cantPasajeros = $data->cantPasajeros;
+$viaje->fechaSalida = $data->fechaSalida;
+$get_viaje = $viaje->getAllTrips();
+
+
+if ($jwt && $get_viaje) {
 
     try {
         $decoded = JWT::decode($jwt, $key, array('HS256'));
@@ -39,7 +39,7 @@ if ($jwt && $get_users) {
 
             $array["success"] = true;
             $array["message"] = "Acceso Garantizado";
-            $array["data"] = $user->users;
+            $array["data"] = $viaje->viajes;
 
             echo json_encode($array);
         } else {
@@ -48,7 +48,8 @@ if ($jwt && $get_users) {
 
             echo json_encode($array);
         }
-    } catch (Exception $e) {
+    } catch (\Throwable $th) {
+
 
         $array["success"] = false;
         $array["message"] = "Acceso Denegado";
