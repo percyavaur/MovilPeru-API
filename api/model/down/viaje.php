@@ -35,6 +35,8 @@ class viaje
     public $created;
     public $updated;
     public $departureDate;
+    public $departure;
+    public $arrive;
     public $destinos = array();
     public $origenes = array();
     public $viajes = array();
@@ -210,6 +212,8 @@ class viaje
                 $this->created = $row['created'];
                 $this->updated = $row['updated'];
                 $this->departureDate = $row['departureDate'];
+                $this->departure = $row['departure'];
+                $this->arrive = $row['arrive'];
 
                 $this->viajes[$i] = array(
                     'idViaje' => $this->idViaje,
@@ -235,7 +239,9 @@ class viaje
                     'SOAT' => $this->SOAT,
                     'created' => $this->created,
                     'updated' => $this->updated,
-                    'departureDate' => $this->departureDate
+                    'departureDate' => $this->departureDate,
+                    'departure' => $this->departure,
+                    'arrive' => $this->arrive
                 );
             }
             return true;
