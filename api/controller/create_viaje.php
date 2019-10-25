@@ -27,6 +27,7 @@ $viaje->departureDate = $data->fechaSalida . " " . $data->horaSalida;
 $viaje->idOrigen = $data->idOrigen;
 $viaje->idDestino = $data->idDestino;
 $viaje->precio = $data->precio;
+$date = date('Y-m-d h:i:s', time());
 
 $data = json_decode(file_get_contents("php://input"));
 
@@ -43,18 +44,25 @@ if ($jwt) {
 
         if ($typeUser == 1 || $typeUser == 2) {
             if ($data->idOrigen != $data->idDestino) {
-                if ($createViaje) {
-                    http_response_code(200);
+                if ($viaje->departureDate > $date) {
+                    if ($createViaje) {
+                        http_response_code(200);
 
-                    $array["success"] = true;
-                    $array["message"] = "Viaje creado";
-                    echo json_encode($array);
+                        $array["success"] = true;
+                        $array["message"] = "Viaje creado";
+                        echo json_encode($array);
+                    } else {
+                        $array["success"] = false;
+                        $array["message"] = "Error al crear viaje";
+
+                        echo json_encode($array);
+                    }
                 } else {
                     $array["success"] = false;
-                    $array["message"] = "Error al crear viaje";
+                    $array["message"] = "Fecha no valida";
 
                     echo json_encode($array);
-                }
+                 }
             } else {
                 $array["success"] = false;
                 $array["message"] = "El destino y origen deben ser diferentes";
