@@ -27,14 +27,14 @@ class conductor
 
     function getConductores()
     {
-        $query = "SELECT `idConductor`, 
-        `idPersonalData`, `idUsuario`, 
-        `categoriaLicencia`, `numLicencia`, 
-        `nombres`, `apellidos`, `tipoDocumento`, 
-        `numDocumento`, `correoElectronico`, 
-        `direccion`, `telefono`, `fecNac`,
-        `genero`, `estadoCivil` 
-        FROM `conductoresinfo`";
+        $query = "SELECT idConductor, 
+        idPersonalData, idUsuario, 
+        categoriaLicencia, numLicencia, 
+        nombres, apellidos, tipoDocumento, 
+        numDocumento, correoElectronico, 
+        direccion, telefono, fecNac,
+        genero, estadoCivil
+        FROM conductoresinfo";
 
         $stmt = $this->conn->prepare($query);
 
