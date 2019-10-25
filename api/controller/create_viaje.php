@@ -49,8 +49,6 @@ if ($jwt) {
 
                         $array["success"] = true;
                         $array["message"] = "Viaje creado";
-                        $array["serverfecha"] = $date;
-                        $array["fecha"] = $viaje->departureDate;
                         echo json_encode($array);
                     } else {
                         $array["success"] = false;
@@ -66,8 +64,6 @@ if ($jwt) {
                  }
             } else {
                 $array["success"] = false;
-                $array["serverfecha"] = $date;
-                $array["fecha"] = $viaje->departureDate;
                 $array["message"] = "Fecha no valida";
 
                 echo json_encode($array);
