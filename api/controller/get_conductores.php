@@ -39,7 +39,7 @@ if ($jwt && $get_conductores) {
 
             $array["success"] = true;
             $array["message"] = "Acceso Garantizado";
-            $array["data"] = $vehiculo->conductores;
+            $array["data"] = $conductor->conductores;
 
             echo json_encode($array);
         } else {

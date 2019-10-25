@@ -59,7 +59,7 @@ class conductor
                 $this->genero = $row['genero'];
                 $this->estadoCivil = $row['estadoCivil'];
 
-                $this->vehiculos[$i] = array(
+                $this->conductores[$i] = array(
                     'idConductor' => $this->idConductor,
                     'idPersonalData' => $this->idPersonalData,
                     'idUsuario' => $this->idUsuario,
