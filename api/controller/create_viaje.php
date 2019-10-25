@@ -43,8 +43,8 @@ if ($jwt) {
         $typeUser = $decoded->data->idRol;
 
         if ($typeUser == 1 || $typeUser == 2) {
-            if ($data->idOrigen != $data->idDestino) {
-                if ($viaje->departureDate > $date) {
+            if ($viaje->departureDate > $date) {
+                if ($data->idOrigen != $data->idDestino) {
                     if ($createViaje) {
                         http_response_code(200);
 
@@ -59,13 +59,13 @@ if ($jwt) {
                     }
                 } else {
                     $array["success"] = false;
-                    $array["message"] = "Fecha no valida";
+                    $array["message"] = "El destino y origen deben ser diferentes";
 
                     echo json_encode($array);
                  }
             } else {
                 $array["success"] = false;
-                $array["message"] = "El destino y origen deben ser diferentes";
+                $array["message"] = "Fecha no valida";
 
                 echo json_encode($array);
             }
