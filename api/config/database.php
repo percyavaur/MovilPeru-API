@@ -7,7 +7,7 @@ class Database
     private $host = "localhost";
     private $db_name = "movilPeru";
     private $username = "root";
-    private $password = "";
+    private $password = "system201602";
     public $conn;
 
     // get the database connection
