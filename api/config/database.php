@@ -1,5 +1,6 @@
 <?php
 // used to get mysql database connection
+date_default_timezone_set('America/Lima');
 class Database
 {
 
@@ -9,7 +10,7 @@ class Database
     private $username = "root";
     private $password = "system201602";
     public $conn;
-
+    
     // get the database connection
     public function getConnection()
     {
