@@ -22,6 +22,8 @@ class pasaje
     public $idaHora;
     public $vueltaFecha;
     public $vueltaHora;
+    public $departureDateIda;
+    public $departureDateVuelta;
     public $conductor;
     public $idTipoPasaje;
     public $pasajesa = array();
@@ -111,10 +113,8 @@ class pasaje
                 $this->vueltaOrigen = $row['vueltaOrigen'];
                 $this->vueltaDestino = $row['vueltaDestino'];
                 $this->fechaCompra = $row['fechaCompra'];
-                $this->idaFecha = $row['idaFecha'];
-                $this->idaHora = $row['idaHora'];
-                $this->vueltaFecha = $row['vueltaFecha'];
-                $this->vueltaHora = $row['vueltaHora'];
+                $this->departureDateIda = $row['departureDateIda'];
+                $this->departureDateVuelta = $row['departureDateVuelta'];
                 $this->conductor = $row['conductor'];
                 $this->idTipoPasaje = $row['idTipoPasaje'];
 
@@ -133,10 +133,8 @@ class pasaje
                     'vueltaOrigen' => $this->vueltaOrigen,
                     'vueltaDestino' => $this->vueltaDestino,
                     'fechaCompra' => $this->fechaCompra,
-                    'idaFecha' => $this->idaFecha,
-                    'idaHora' => $this->idaHora,
-                    'vueltaFecha' => $this->vueltaFecha,
-                    'vueltaHora' => $this->vueltaHora,
+                    'departureDateIda' => $this->departureDateIda,
+                    'departureDateVuelta' => $this->departureDateVuelta,
                     'conductor' => $this->conductor,
                     'idTipoPasaje' => $this->idTipoPasaje
                 );
