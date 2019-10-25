@@ -34,7 +34,6 @@ $data = json_decode(file_get_contents("php://input"));
 $jwt = isset($data->jwt) ? $data->jwt : "";
 
 $array = [];
-$createViaje = $viaje->createViaje();
 
 if ($jwt) {
 
@@ -45,7 +44,7 @@ if ($jwt) {
         if ($typeUser == 1 || $typeUser == 2) {
             if ($viaje->departureDate > $date) {
                 if ($data->idOrigen != $data->idDestino) {
-                    if ($createViaje) {
+                    if ($viaje->createViaje()) {
                         http_response_code(200);
 
                         $array["success"] = true;
