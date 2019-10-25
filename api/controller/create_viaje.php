@@ -48,6 +48,7 @@ if ($jwt) {
 
                 $array["success"] = true;
                 $array["message"] = "Viaje creado";
+                echo json_encode($array);
             } else {
                 $array["success"] = false;
                 $array["message"] = "Error al crear viaje";
