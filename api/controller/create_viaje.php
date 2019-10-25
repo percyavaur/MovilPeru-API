@@ -42,16 +42,22 @@ if ($jwt) {
         $typeUser = $decoded->data->idRol;
 
         if ($typeUser == 1 || $typeUser == 2) {
+            if ($data->idOrigen != $data->idDestino) {
+                if ($createViaje) {
+                    http_response_code(200);
 
-            if ($createViaje) {
-                http_response_code(200);
+                    $array["success"] = true;
+                    $array["message"] = "Viaje creado";
+                    echo json_encode($array);
+                } else {
+                    $array["success"] = false;
+                    $array["message"] = "Error al crear viaje";
 
-                $array["success"] = true;
-                $array["message"] = "Viaje creado";
-                echo json_encode($array);
+                    echo json_encode($array);
+                }
             } else {
                 $array["success"] = false;
-                $array["message"] = "Error al crear viaje";
+                $array["message"] = "El destino y origen deben ser diferentes";
 
                 echo json_encode($array);
             }
