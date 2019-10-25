@@ -7,32 +7,70 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 include_once '../config/database.php';
 include_once '../model/down/viaje.php';
+include_once '../config/core.php';
+include_once '../libs/php-jwt-master/src/BeforeValidException.php';
+include_once '../libs/php-jwt-master/src/ExpiredException.php';
+include_once '../libs/php-jwt-master/src/SignatureInvalidException.php';
+include_once '../libs/php-jwt-master/src/JWT.php';
+
+use \Firebase\JWT\JWT;
+
 
 $data = json_decode(file_get_contents("php://input"));
 $database = new Database();
 $db = $database->getConnection();
 $viaje = new viaje($db);
 
-$viaje->idConductor = 1;
-$viaje->idVehiculo = 1;
-$viaje->horaSalida = $data->horaSalida;
-$viaje->precio = 25;
+$viaje->idConductor = $data->idConductor;
+$viaje->idVehiculo = $data->idVehiculo;
+$viaje->departureDate = $data->fechaSalida . " " . $data->horaSalida;
+$viaje->idOrigen = $data->idOrigen;
+$viaje->idDestino = $data->idDestino;
+$viaje->precio = $data->precio;
 
-$viaje->fechaSalida = $data->fechaSalida;
-$viaje->departureDate=$data->fechaSalida." ".$data->horaSalida;
+$data = json_decode(file_get_contents("php://input"));
 
-for ($i = 1; $i < 10; $i++) {
-    $viaje->idOrigen = $i;
-    for ($y = 1; $y < 10; $y++) {
-        $viaje->idDestino = $y;
-        if ($y!= $i) {
-            if ($viaje->createViaje()) {
-                $array["message"] = $i . "-" . $y;
-                echo json_encode($array);
+$jwt = isset($data->jwt) ? $data->jwt : "";
+
+$array = [];
+$createViaje = $viaje->createViaje();
+
+if ($jwt) {
+
+    try {
+        $decoded = JWT::decode($jwt, $key, array('HS256'));
+        $typeUser = $decoded->data->idRol;
+
+        if ($typeUser == 1 || $typeUser == 2) {
+
+            if ($createViaje) {
+                http_response_code(200);
+
+                $array["success"] = true;
+                $array["message"] = "Viaje creado";
             } else {
-                $array["message"] = "error";
+                $array["success"] = false;
+                $array["message"] = "Error al crear viaje";
+
                 echo json_encode($array);
             }
+        } else {
+            $array["success"] = false;
+            $array["message"] = "Acceso Denegado";
+
+            echo json_encode($array);
         }
+    } catch (Exception $e) {
+
+        $array["success"] = false;
+        $array["message"] = "Acceso Denegado";
+
+        echo json_encode($array);
     }
+} else {
+
+    $array["success"] = false;
+    $array["message"] = "Acceso Denegado";
+
+    echo json_encode($array);
 }
