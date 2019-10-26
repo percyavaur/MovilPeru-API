@@ -24,6 +24,7 @@ $viaje = new viaje($db);
 $viaje->idConductor = $data->idConductor;
 $viaje->idVehiculo = $data->idVehiculo;
 $viaje->departureDate = $data->fechaSalida . " " . $data->horaSalida;
+$viaje->arriveDate = $data->fechaLlegada . " " . $data->horaLlegada;
 $viaje->idOrigen = $data->idOrigen;
 $viaje->idDestino = $data->idDestino;
 $viaje->precio = $data->precio;

@@ -256,7 +256,7 @@ class viaje
 
     function createViaje()
     {
-        $query = "call registrarViaje(:idConductor, :idVehiculo, :idOrigen, :idDestino, :precio, :departureDate)";
+        $query = "call registrarViaje(:idConductor, :idVehiculo, :idOrigen, :idDestino, :precio, :departureDate, :arriveDate)";
         $stmt = $this->conn->prepare($query);
 
         $this->idConductor = htmlspecialchars(strip_tags($this->idConductor));
@@ -265,6 +265,7 @@ class viaje
         $this->idDestino = htmlspecialchars(strip_tags($this->idDestino));
         $this->precio = htmlspecialchars(strip_tags($this->precio));
         $this->departureDate = htmlspecialchars(strip_tags($this->departureDate));
+        $this->arriveDate = htmlspecialchars(strip_tags($this->arriveDate));
 
         $stmt->bindParam(':idConductor', $this->idConductor);
         $stmt->bindParam(':idVehiculo', $this->idVehiculo);
@@ -272,6 +273,7 @@ class viaje
         $stmt->bindParam(':idDestino', $this->idDestino);
         $stmt->bindParam(':precio', $this->precio);
         $stmt->bindParam(':departureDate', $this->departureDate);
+        $stmt->bindParam(':arriveDate', $this->arriveDate);
 
         if ($stmt->execute()) {
             return true;
