@@ -273,6 +273,7 @@ class user
     }
 
     function deleteToken()
+    
     {
         //$query = "UPDATE usuarios SET expoToken = ? WHERE idUsuario = ?";
         $query="DELETE FROM `expotokens` WHERE `idUsuario` = ? && `expoToken` = ?";

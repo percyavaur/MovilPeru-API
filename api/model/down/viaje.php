@@ -126,6 +126,7 @@ class viaje
 
                 $this->idViaje = $row['idViaje'];
                 $this->idOrigen = $row['idOrigen'];
+                $this->idVehiculo = $row['idVehiculo'];
                 $this->Origen = $row['Origen'];
                 $this->depOrigen = $row['depOrigen'];
                 $this->disOrigen = $row['disOrigen'];
@@ -151,6 +152,7 @@ class viaje
                 $this->viajes[$i] = array(
                     'idViaje' => $this->idViaje,
                     'idOrigen' => $this->idOrigen,
+                    'idVehiculo' => $this->idVehiculo,
                     'Origen' => $this->Origen,
                     'depOrigen' => $this->depOrigen,
                     'disOrigen' => $this->disOrigen,
@@ -197,6 +199,7 @@ class viaje
 
                 $this->idViaje = $row['idViaje'];
                 $this->idOrigen = $row['idOrigen'];
+                $this->idVehiculo = $row['idVehiculo'];
                 $this->Origen = $row['Origen'];
                 $this->depOrigen = $row['depOrigen'];
                 $this->disOrigen = $row['disOrigen'];
@@ -226,6 +229,7 @@ class viaje
                 $this->viajes[$i] = array(
                     'idViaje' => $this->idViaje,
                     'idOrigen' => $this->idOrigen,
+                    'idVehiculo' => $this->idVehiculo,
                     'Origen' => $this->Origen,
                     'depOrigen' => $this->depOrigen,
                     'disOrigen' => $this->disOrigen,
