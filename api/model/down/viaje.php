@@ -181,7 +181,7 @@ class viaje
 
     function getAllTrips()
     {
-        $idViaje_set = !empty($this->idViaje) ? " && idViaje != ?" : "";
+        $idViaje_set = !empty($this->idViaje) ? " && idViaje != ? LIMIT 0,1" : "";
         $query = "SELECT * FROM viajesInfo {$idViaje_set}";
         $stmt = $this->conn->prepare($query);
 
