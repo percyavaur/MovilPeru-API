@@ -23,7 +23,6 @@ $viaje = new Viaje($db);
 $data = json_decode(file_get_contents("php://input"));
 
 $jwt = isset($data->jwt) ? $data->jwt : "";
-$viaje->idViaje = $data->idViaje;
 
 $array = [];
 $get_viaje = $viaje->getAllTrips();
