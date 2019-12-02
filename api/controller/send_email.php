@@ -1,5 +1,4 @@
 <?php
-
 // required headers
 header("Access-Control-Allow-Origin:  *");
 header("Content-Type: application/json; charset=UTF-8");
@@ -34,11 +33,107 @@ if($pasaje->tripInfoPassenger()){
     try {
         http_response_code(200);
         $infopasajes = $pasaje->pasajesa;
-        $html = '';
+        $html_adultos = "<div style='flex-direction:column; align-items: flex-start; padding: 0.75rem;width: 100%;'>
+        <h3>Adultos</h3>";
+        $contador_adultos = 0;
+        $html_ninos = "<div style='flex-direction:column; align-items: flex-start; padding: 0.75rem;width: 100%;'>
+        <h3>Niños</h3>";
+        $contador_ninos = 0;
+        $html_bebes = "<div style='flex-direction:column; align-items: flex-start; padding: 0.75rem;width: 100%;'>
+        <h3>Bebés</h3>";
+        $contador_bebes = 0;
+        $html_vuelta = "";
 
-        // foreach ($infopasajes as $value) {
-        //     $html .= $value;
-        // }
+        $ida_origen_destino = '';
+        $ida_fecha = '';
+        $ida_hora = '';
+        $vuelta_origen_destino = '';
+        $vuelta_fecha = '';
+        $vuelta_hora ='';
+        $vuelta = false;
+
+        foreach ($infopasajes as $value) {
+            if($value["idTipoPasaje"] == 1){
+                $ida_origen_destino = $value['idaOrigen']." - ".$value['idaDestino']; 
+                $ida_fecha = $value['idaFecha'];
+                $ida_hora = $value['idaHora'];
+                if($value['vueltaOrigen'] != ""){
+                    $vuelta = true;
+                    $vuelta_origen_destino = $value['vueltaOrigen']." - ".$value['vueltaDestino']; 
+                    $vuelta_fecha = $value['vueltaFecha'];
+                    $vuelta_hora = $value['vueltaHora'];
+                }
+                $contador_adultos = $contador_adultos + 1;
+                $html_adultos .= "
+                    <div style='bg-tabs margin-bottom: 1rem; padding: 1.5rem;width: 100%; border-radius: 10px;'>
+                        <div style='display:flex; flex-direction:row; justify-content-between align-items: center; margin-bottom: 1rem;'>
+                            <div style='flex-direction:row;'>
+                                <label style='color:#dc3545'>NOMBRES: </label>
+                                <span style='margin-left: 0.75rem;'>".$value['nombres']."</span>
+                                <label style='color:#dc3545'>APELLIDOS: </label>
+                                <span style='margin-left: 0.75rem;'>".$value['apellidos']."</span>
+                                <label style='color:#dc3545'>".$value['tipoDocumento']."</label>
+                                <span style='margin-left: 0.75rem;'>".$value['numDocumento']."</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>";
+            }else if($value["idTipoPasaje"] == 2){
+                $contador_ninos = $contador_ninos + 1;
+                $html_ninos .= "
+                    <div style='bg-tabs margin-bottom: 1rem; padding: 1.5rem;width: 100%; border-radius: 10px;'>
+                        <div style='display:flex; flex-direction:row; justify-content-between align-items: center; margin-bottom: 1rem;'>
+                            <div style='flex-direction:row;'>
+                                <label style='color:#dc3545'>NOMBRES: </label>
+                                <span style='margin-left: 0.75rem;'>".$value['nombres']."</span>
+                                <label style='color:#dc3545'>APELLIDOS: </label>
+                                <span style='margin-left: 0.75rem;'>".$value['apellidos']."</span>
+                                <label style='color:#dc3545'>".$value['tipoDocumento']."</label>
+                                <span style='margin-left: 0.75rem;'>".$value['numDocumento']."</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>";
+            }else{
+                $contador_bebes = $contador_bebes + 1;
+                $html_bebes .= "
+                <div style='bg-tabs margin-bottom: 1rem; padding: 1.5rem;width: 100%; border-radius: 10px;'>
+                    <div style='display:flex; flex-direction:row; justify-content-between align-items: center; margin-bottom: 1rem;'>
+                        <div style='flex-direction:row;'>
+                            <label style='color:#dc3545'>NOMBRES: </label>
+                            <span style='margin-left: 0.75rem;'>".$value['nombres']."</span>
+                            <label style='color:#dc3545'>APELLIDOS: </label>
+                            <span style='margin-left: 0.75rem;'>".$value['apellidos']."</span>
+                            <label style='color:#dc3545'>".$value['tipoDocumento']."</label>
+                            <span style='margin-left: 0.75rem;'>".$value['numDocumento']."</span>
+                        </div>
+                    </div>
+                </div>
+            </div>";
+            }
+        }
+        if($contador_ninos == 0){
+            $html_ninos = '';
+        }else if($contador_bebes == 0){
+            $html_bebes = '';
+        }
+        
+        if($vuelta == false){
+            $texto_ida_o_vuelta = "Solo Ida";
+        }else{
+            $texto_ida_o_vuelta = "Ida y Vuelta";
+            $html_vuelta = "
+            <div style='display:flex; flex-direction:column;width: 47%;'><span
+                    title='$vuelta_origen_destino'
+                    style='color: #dc3545; display:flex; flex-direction:row; align-items:center;width: 100%; max-height: 27px;'>
+                    Vuelta:
+                    <span style='color: black;' style='text-overflow: ellipsis; overflow: hidden;'>
+                    $vuelta_origen_destino</span></span><span
+                    style='color: #dc3545; display:flex; flex-direction:row; align-items:center'>
+                    Hora de Vuelta:
+                    <span style='color: black; padding-left: 0.75rem;'> $vuelta_hora</span></span>
+            </div>";
+        }
         
         // Instantiation and passing `true` enables exceptions
         $mail = new PHPMailer(true);
@@ -69,107 +164,32 @@ if($pasaje->tripInfoPassenger()){
             // Content
             $mail->isHTML(true);                                  // Set email format to HTML
             $mail->Subject = 'Ha realizado una reserva con Movil Perú';
-            $mail->Body    = "<!DOCTYPE html>
-            <html lang='en'>
-            <head>
-                <meta charset='UTF-8'>
-                <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-                <meta http-equiv='X-UA-Compatible' content='ie=edge'>
-                <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' crossorigin='anonymous'>
-            </head>
-            <body>
-                <div class='d-flex flex-column bg-white p-4' style='border-radius: 10px;'>
-                    <div class='d-flex flex-row justify-content-between'>
-                        <h1 class='text-danger'>Ida y Vuelta</h1>
-                        <h1 class='text-dark'>RESERVA N° $ticket</h1>
-                        <h1 class='text-danger'>Fecha de Ida y de Vuelta</h1>
-                    </div>
-                    <div class='d-flex flex-row justify-content-between mt-3 mb-3'>
-                        <div class='d-flex flex-column' style='width: 47%;'>
-                            <span title='Lima, Los Olivos, Terminal los olivos-Piura, Mancora, Terminal Mancora'
-                                class='text-danger d-flex flex-row alig-items-center' style='width: 100%; max-height: 27px;'>
+            $mail->Body    = "
+            <center style='flex-direction:column; padding: 1.5rem; border-radius: 10px;'>
+                    <h1 style='color:black;'> RESERVA N° $ticket</h1>
+                    <h3 style='color:#dc3545'>$texto_ida_o_vuelta</h3>
+                    <h3 style='color:#dc3545'>Fecha de Ida: $ida_fecha</h3><br>
+                    <div style='flex-direction:row; justify-content:space-between; margin-top: 1rem; margin-bottom: 1rem;'>
+                        <div style='display:flex; flex-direction:column;width: 47%;'>
+                            <span title='$ida_origen_destino'
+                                style='display:flex; flex-direction:row; align-items:center; color: #dc3545;width: 100%; max-height: 27px;'>
                                 Ida:
-                                <span class='text-dark' style='text-overflow: ellipsis; overflow: hidden;'>Lima, Los Olivos,
-                                    Terminal los olivos - Piura, Mancora, Terminal Mancora</span>
+                                <span style='color: black;text-overflow: ellipsis; overflow: hidden;'>
+                                $ida_origen_destino</span>
                             </span>
-                            <span class='text-danger d-flex flex-row alig-items-center'>
+                            <span style='color: #dc3545; display:flex; flex-direction:row; align-items:center;'>
                                 Hora de Ida:
-                                <span class='text-dark pl-2'> 16:00:00</span></span>
-                        </div>
-                        <div class='d-flex flex-column' style='width: 47%;'><span
-                                title='Piura, Mancora, Terminal Mancora-Lima, Los Olivos, Terminal los olivos'
-                                class='text-danger d-flex flex-row alig-items-center' style='width: 100%; max-height: 27px;'>
-                                Vuelta:
-                                <span class='text-dark' style='text-overflow: ellipsis; overflow: hidden;'>Piura, Mancora,
-                                    Terminal Mancora - Lima, Los Olivos, Terminal los olivos</span></span><span
-                                class='text-danger d-flex flex-row alig-items-center'>
-                                Hora de Vuelta:
-                                <span class='text-dark pl-2'> 15:00:00</span></span></div>
-                    </div>
-                    <div class='d-flex flex-column align-items-start'>
+                                <span style='color: black; padding-left: 0.75rem;'>$ida_hora</span></span>
+                        </div><br>
+                        $html_vuelta
+                    </div><br>
+                    <div style='flex-direction:column; align-items: flex-start;'>
                         <h2>Información de Pasajeros</h2>
-                        <div class='d-flex flex-column align-items-start p-2' style='width: 100%;'>
-                            <h3>Adultos: 1</h3>
-                            <div class='bg-tabs mb-3 p-4' style='width: 100%; border-radius: 10px;'>
-                                <div class='d-flex flex-row justify-content-between align-items-center mb-3'>
-                                    <div class='d-flex flex-row' style='width: 33%;'>
-                                        <label for=''>NOMBRES: </label>
-                                        <span class='ml-2'>NOMBRES</span>
-                                    </div>
-                                    <div class='d-flex flex-row' style='width: 33%;'>
-                                        <label for=''>APELLIDOS: </label>
-                                        <span class='ml-2'>APELLIDOS</span>
-                                    </div>
-                                    <div class='d-flex flex-row' style='width: 33%;'>
-                                        <label for=''>DOCUMENTO: </label>
-                                        <span class='ml-2'>DOCUMENTO</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class='d-flex flex-column align-items-start p-2' style='width: 100%;'>
-                            <h3>Niños: 1</h3>
-                            <div class='bg-tabs mb-3 p-4' style='width: 100%; border-radius: 10px;'>
-                                <div class='d-flex flex-row justify-content-between align-items-center mb-3'>
-                                    <div class='d-flex flex-row' style='width: 33%;'>
-                                        <label for=''>NOMBRES: </label>
-                                        <span class='ml-2'>NOMBRES</span>
-                                    </div>
-                                    <div class='d-flex flex-row' style='width: 33%;'>
-                                        <label for=''>APELLIDOS: </label>
-                                        <span class='ml-2'>APELLIDOS</span>
-                                    </div>
-                                    <div class='d-flex flex-row' style='width: 33%;'>
-                                        <label for=''>DOCUMENTO: </label>
-                                        <span class='ml-2'>DOCUMENTO</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class='d-flex flex-column align-items-start p-2' style='width: 100%;'>
-                            <h3>Bebés: 1</h3>
-                            <div class='bg-tabs mb-3 p-4' style='width: 100%; border-radius: 10px;'>
-                                <div class='d-flex flex-row justify-content-between align-items-center mb-3'>
-                                    <div class='d-flex flex-row' style='width: 33%;'>
-                                        <label for=''>NOMBRES: </label>
-                                        <span class='ml-2'>NOMBRES</span>
-                                    </div>
-                                    <div class='d-flex flex-row' style='width: 33%;'>
-                                        <label for=''>APELLIDOS: </label>
-                                        <span class='ml-2'>APELLIDOS</span>
-                                    </div>
-                                    <div class='d-flex flex-row' style='width: 33%;'>
-                                        <label for=''>DOCUMENTO: </label>
-                                        <span class='ml-2'>DOCUMENTO</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        $html_adultos<br>
+                        $html_ninos<br>
+                        $html_bebes<br>
                     </div>
-                </div>
-            </body>
-            
-            </html>";
+                </center>";
             $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
             // Activo condificacción utf-8
             $mail->CharSet = 'UTF-8';
