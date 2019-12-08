@@ -50,6 +50,7 @@ if ($jwt) {
 
                         $array["success"] = true;
                         $array["message"] = "Viaje creado";
+                        $array["testdate"] = $date;
                         echo json_encode($array);
                     } else {
                         $array["success"] = false;
