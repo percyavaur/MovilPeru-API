@@ -289,4 +289,20 @@ class viaje
             return false;
         }
     }
+
+    function deleteTrip()
+    {
+        $query = "DELETE FROM viajes WHERE idViaje = :idViaje";
+        $stmt = $this->conn->prepare($query);
+
+        $this->idViaje = htmlspecialchars(strip_tags($this->idViaje));
+
+        $stmt->bindParam(':idViaje', $this->idViaje);
+
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
