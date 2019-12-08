@@ -29,15 +29,8 @@ $viaje->arriveDate = $data->fechaLlegada . " " . $data->horaLlegada;
 $viaje->idOrigen = $data->idOrigen;
 $viaje->idDestino = $data->idDestino;
 $viaje->precio = $data->precio;
-
-if($data->departure == null){
-    $viaje->departure = "NULL";
-}else{$viaje->departure= $data->departure; }
-
-if($data->arrive == null){
-    $viaje->arrive = "NULL";
-}else{$viaje->arrive= $data->arrive; }
-
+$viaje->departure = $data->departure;
+$viaje->arrive = $data->arrive;
 $date = date('Y-m-d H:i:s', time());
 
 $data = json_decode(file_get_contents("php://input"));
