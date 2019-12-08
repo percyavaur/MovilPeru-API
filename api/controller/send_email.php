@@ -94,27 +94,28 @@ if($pasaje->tripInfoPassenger()){
                         </div>
                     </div>
                 </div>";
-            }else{
+            }else if($value["idTipoPasaje"] == 3){
                 $contador_bebes = $contador_bebes + 1;
                 $html_bebes .= "
-                <div style='bg-tabs margin-bottom: 1rem; padding: 1.5rem;width: 100%; border-radius: 10px;'>
-                    <div style='display:flex; flex-direction:row; justify-content-between align-items: center; margin-bottom: 1rem;'>
-                        <div style='flex-direction:row;'>
-                            <label style='color:#dc3545'>NOMBRES: </label>
-                            <span style='margin-left: 0.75rem;'>".$value['nombres']."</span>
-                            <label style='color:#dc3545'>APELLIDOS: </label>
-                            <span style='margin-left: 0.75rem;'>".$value['apellidos']."</span>
-                            <label style='color:#dc3545'>".$value['tipoDocumento']."</label>
-                            <span style='margin-left: 0.75rem;'>".$value['numDocumento']."</span>
+                    <div style='bg-tabs margin-bottom: 1rem; padding: 1.5rem;width: 100%; border-radius: 10px;'>
+                        <div style='display:flex; flex-direction:row; justify-content-between align-items: center; margin-bottom: 1rem;'>
+                            <div style='flex-direction:row;'>
+                                <label style='color:#dc3545'>NOMBRES: </label>
+                                <span style='margin-left: 0.75rem;'>".$value['nombres']."</span>
+                                <label style='color:#dc3545'>APELLIDOS: </label>
+                                <span style='margin-left: 0.75rem;'>".$value['apellidos']."</span>
+                                <label style='color:#dc3545'>".$value['tipoDocumento']."</label>
+                                <span style='margin-left: 0.75rem;'>".$value['numDocumento']."</span>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>";
+                </div>";
             }
         }
         if($contador_ninos == 0){
             $html_ninos = '';
-        }else if($contador_bebes == 0){
+        }
+        if($contador_bebes == 0){
             $html_bebes = '';
         }
         
@@ -168,9 +169,9 @@ if($pasaje->tripInfoPassenger()){
             <center style='flex-direction:column; padding: 1.5rem; border-radius: 10px;'>
                     <h1 style='color:black;'> RESERVA N° $ticket</h1>
                     <h3 style='color:#dc3545'>$texto_ida_o_vuelta</h3>
-                    <h3 style='color:#dc3545'>Fecha de Ida: $ida_fecha</h3><br>
+                    <h3 style='color:#dc3545'>Fecha y Hora de Ida: $ida_fecha</h3><br>
                     <div style='flex-direction:row; justify-content:space-between; margin-top: 1rem; margin-bottom: 1rem;'>
-                        <div style='display:flex; flex-direction:row; justify-content:center;width: 47%;'>
+                        <div style='display:flex; flex-direction:row;'>
                             <span title='$ida_origen_destino'
                                 style='display:flex; flex-direction:row; align-items:center; color: #dc3545;width: 100%; max-height: 27px;'>
                                 Ida:
