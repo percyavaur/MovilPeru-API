@@ -292,8 +292,8 @@ class viaje
 
     function updateTrip()
     {
-        $departure_set =  ", departure= :departure";
-        $arrive_set = ", arrive= :arrive";
+        $departure_set = !empty($this->departure) ? ", departure= :departure " : "";
+        $arrive_set = !empty($this->arrive) ? ", arrive= :arrive " : "";
 
         $query = "UPDATE viajes SET 
         idConductor= :idConductor, 
@@ -326,18 +326,14 @@ class viaje
         $stmt->bindParam(':arriveDate', $this->arriveDate);
         $stmt->bindParam(':idViaje', $this->idViaje);
 
-        
-        $this->departure = htmlspecialchars(strip_tags($this->departure));
-        $stmt->bindParam(':departure', $this->departure);
-
-        
-        $this->arrive = htmlspecialchars(strip_tags($this->arrive));
-        $stmt->bindParam(':arrive', $this->arrive);
-
         if(!empty($this->departure)){
+            $this->departure = htmlspecialchars(strip_tags($this->departure));
+            $stmt->bindParam(':departure', $this->departure);
         }
 
         if(!empty($this->arrive)){
+            $this->arrive = htmlspecialchars(strip_tags($this->arrive));
+            $stmt->bindParam(':arrive', $this->arrive);
         }
 
 
