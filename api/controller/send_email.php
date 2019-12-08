@@ -55,13 +55,13 @@ if($pasaje->tripInfoPassenger()){
         foreach ($infopasajes as $value) {
             if($value["idTipoPasaje"] == 1){
                 $ida_origen_destino = $value['idaOrigen']." - ".$value['idaDestino']; 
-                $ida_fecha = $value['idaFecha'];
-                $ida_hora = $value['idaHora'];
+                $ida_fecha = $value['departureDateIda'];
+                $ida_hora = $value['departureDateIda'];
                 if($value['vueltaOrigen'] != ""){
                     $vuelta = true;
                     $vuelta_origen_destino = $value['vueltaOrigen']." - ".$value['vueltaDestino']; 
-                    $vuelta_fecha = $value['vueltaFecha'];
-                    $vuelta_hora = $value['vueltaHora'];
+                    $vuelta_fecha = $value['departureDateVuelta'];
+                    $vuelta_hora = $value['departureDateVuelta'];
                 }
                 $contador_adultos = $contador_adultos + 1;
                 $html_adultos .= "
@@ -170,16 +170,13 @@ if($pasaje->tripInfoPassenger()){
                     <h3 style='color:#dc3545'>$texto_ida_o_vuelta</h3>
                     <h3 style='color:#dc3545'>Fecha de Ida: $ida_fecha</h3><br>
                     <div style='flex-direction:row; justify-content:space-between; margin-top: 1rem; margin-bottom: 1rem;'>
-                        <div style='display:flex; flex-direction:column;width: 47%;'>
+                        <div style='display:flex; flex-direction:row; justify-content:center;width: 47%;'>
                             <span title='$ida_origen_destino'
                                 style='display:flex; flex-direction:row; align-items:center; color: #dc3545;width: 100%; max-height: 27px;'>
                                 Ida:
                                 <span style='color: black;text-overflow: ellipsis; overflow: hidden;'>
                                 $ida_origen_destino</span>
                             </span>
-                            <span style='color: #dc3545; display:flex; flex-direction:row; align-items:center;'>
-                                Hora de Ida:
-                                <span style='color: black; padding-left: 0.75rem;'>$ida_hora</span></span>
                         </div><br>
                         $html_vuelta
                     </div><br>
