@@ -292,8 +292,8 @@ class viaje
 
     function updateTrip()
     {
-        $departure_set = !empty($this->departure) ? ", departure= :departure " : " departure= NULL";
-        $arrive_set = !empty($this->arrive) ? ", arrive= :arrive " : "arrive= NULL";
+        $departure_set = !empty($this->departure) ? ", departure= :departure " : ", departure= NULL";
+        $arrive_set = !empty($this->arrive) ? ", arrive= :arrive " : ", arrive= NULL";
 
         $query = "UPDATE viajes SET 
         idConductor= :idConductor, 
