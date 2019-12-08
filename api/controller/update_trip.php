@@ -53,11 +53,11 @@ if ($jwt) {
 
                         $array["success"] = true;
                         $array["message"] = "Viaje actualizado";
-                        $array["testdate"] = $date;
                         echo json_encode($array);
                     } else {
                         $array["success"] = false;
                         $array["message"] = "Error al actualizar viaje";
+                        $array["test"] = $viaje;
 
                         echo json_encode($array);
                     }
