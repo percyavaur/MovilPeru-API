@@ -290,6 +290,60 @@ class viaje
         }
     }
 
+    function updateTrip()
+    {
+        $departure_set = !empty($this->departure) ? ", departure= :departure " : "";
+        $arrive_set = !empty($this->arrive) ? ", arrive= :arrive " : "";
+
+        $query = "UPDATE viajes SET 
+        idConductor= :idConductor, 
+        idVehiculo= :idVehiculo, 
+        idOrigen= :idOrigen, 
+        idDestino= :idDestino, 
+        precio= :precio, 
+        departureDate= :departureDate, 
+        arriveDate= :arriveDate
+        {$departure_set}
+        {$arrive_set}
+        WHERE idViaje= :idViaje";
+        $stmt = $this->conn->prepare($query);
+
+        $this->idConductor = htmlspecialchars(strip_tags($this->idConductor));
+        $this->idVehiculo = htmlspecialchars(strip_tags($this->idVehiculo));
+        $this->idOrigen = htmlspecialchars(strip_tags($this->idOrigen));
+        $this->idDestino = htmlspecialchars(strip_tags($this->idDestino));
+        $this->precio = htmlspecialchars(strip_tags($this->precio));
+        $this->departureDate = htmlspecialchars(strip_tags($this->departureDate));
+        $this->arriveDate = htmlspecialchars(strip_tags($this->arriveDate));
+        $this->idViaje = htmlspecialchars(strip_tags($this->idViaje));
+
+        $stmt->bindParam(':idConductor', $this->idConductor);
+        $stmt->bindParam(':idVehiculo', $this->idVehiculo);
+        $stmt->bindParam(':idOrigen', $this->idOrigen);
+        $stmt->bindParam(':idDestino', $this->idDestino);
+        $stmt->bindParam(':precio', $this->precio);
+        $stmt->bindParam(':departureDate', $this->departureDate);
+        $stmt->bindParam(':arriveDate', $this->arriveDate);
+        $stmt->bindParam(':idViaje', $this->idViaje);
+
+        if(!empty($this->departure)){
+            $this->departure = htmlspecialchars(strip_tags($this->departure));
+            $stmt->bindParam(':departure', $this->departure);
+        }
+
+        if(!empty($this->arrive)){
+            $this->arrive = htmlspecialchars(strip_tags($this->arrive));
+            $stmt->bindParam(':arrive', $this->arrive);
+        }
+
+
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     function deleteTrip()
     {
         $query = "DELETE FROM viajes WHERE idViaje = :idViaje";
