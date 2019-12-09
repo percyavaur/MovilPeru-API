@@ -24,8 +24,8 @@ $viaje = new viaje($db);
 $viaje->idViaje = $data->idViaje;
 $viaje->idConductor = $data->idConductor;
 $viaje->idVehiculo = $data->idVehiculo;
-$viaje->departureDate = $data->fechaSalida . " " . $data->horaSalida;
-$viaje->arriveDate = $data->fechaLlegada . " " . $data->horaLlegada;
+$viaje->departureDate = $data->fechaSalida ." ". $data->horaSalida;
+$viaje->arriveDate = $data->fechaLlegada ." ". $data->horaLlegada;
 $viaje->idOrigen = $data->idOrigen;
 $viaje->idDestino = $data->idDestino;
 $viaje->precio = $data->precio;
@@ -46,31 +46,24 @@ if ($jwt) {
         $typeUser = $decoded->data->idRol;
 
         if ($typeUser == 1 || $typeUser == 2) {
-            if ($viaje->departureDate > $date && $viaje->arriveDate > $viaje->departureDate && $viaje->arriveDate > $date) {
-                if ($data->idOrigen != $data->idDestino) {
-                    if ($viaje->updateTrip()) {
-                        http_response_code(200);
+            if ($data->idOrigen != $data->idDestino) {
+                if ($viaje->updateTrip()) {
+                    http_response_code(200);
 
-                        $array["success"] = true;
-                        $array["message"] = "Viaje actualizado";
-                        $array["test"] = $viaje;
-                        echo json_encode($array);
-                    } else {
-                        $array["success"] = false;
-                        $array["message"] = "Error al actualizar viaje";
-                        $array["test"] = $viaje;
-
-                        echo json_encode($array);
-                    }
+                    $array["success"] = true;
+                    $array["message"] = "Viaje actualizado";
+                    $array["test"] = $viaje;
+                    echo json_encode($array);
                 } else {
                     $array["success"] = false;
-                    $array["message"] = "El destino y origen deben ser diferentes";
+                    $array["message"] = "Error al actualizar viaje";
+                    $array["test"] = $viaje;
 
                     echo json_encode($array);
                 }
             } else {
                 $array["success"] = false;
-                $array["message"] = "Fecha no valida";
+                $array["message"] = "El destino y origen deben ser diferentes";
 
                 echo json_encode($array);
             }
